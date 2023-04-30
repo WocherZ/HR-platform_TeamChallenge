@@ -1,0 +1,24 @@
+.resume-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .inputs {
+    width: 500px;
+
+    * {
+      margin: {
+        top: 10px;
+        bottom: 10px;
+      };
+    }
+  }
+
+  .university {
+    border-top: 2px solid black;
+  }
+
+  .company {
+    border-top: 2px solid black;
+  }
+}

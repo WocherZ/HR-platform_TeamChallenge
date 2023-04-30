@@ -3,19 +3,48 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
-.profile .personal-info {
+.profile .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.profile .line {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 500px;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
 }
-.profile .personal-info .section1, .profile .personal-info .section2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.profile .line div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+@media screen and (max-width: 767px) {
+  .profile {
+    justify-content: space-between;
+  }
+}
+.profile .ava {
+  width: 100%;
+  border-radius: 100%;
+}
+.profile .resumes {
+  margin: 0;
+}
+.profile .resumes .col {
+  padding: 0;
+}
+.profile .resumes .accordion {
+  width: 100%;
+  max-width: 1000px;
+  --bs-accordion-border-color: black;
+}
+.profile .resumes .accordion .accordion-button:not(.collapsed)::after {
+  background-image: var(--bs-accordion-btn-icon);
+}
+.profile .resumes .accordion .accordion-button:focus {
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=Profile.css.map */

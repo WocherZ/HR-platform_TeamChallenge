@@ -1,0 +1,20 @@
+.resume-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.resume-form .inputs {
+  width: 500px;
+}
+.resume-form .inputs * {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.resume-form .university {
+  border-top: 2px solid black;
+}
+.resume-form .company {
+  border-top: 2px solid black;
+}
+
+/*# sourceMappingURL=ResumeForm.css.map */
