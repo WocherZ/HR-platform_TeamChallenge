@@ -1,0 +1,14 @@
+.range-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.range-input .label {
+  margin-right: 10px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=RangeInput.css.map */

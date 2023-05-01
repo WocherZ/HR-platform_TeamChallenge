@@ -1,0 +1,86 @@
+.search {
+  min-height: 90vh;
+  position: relative;
+  user-select: none;
+}
+.search .filters {
+  background-color: lightgray;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  padding: 0;
+}
+.search .filters .filter {
+  max-width: 200px;
+  margin: 0;
+  padding: 0;
+}
+@media screen and (min-width: 767px) {
+  .search .filters {
+    flex-direction: column;
+    min-height: 90vh;
+  }
+  .search .filters * {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .search .filters {
+    flex-direction: row;
+    min-height: 20vh;
+  }
+  .search .filters * {
+    margin: 0;
+  }
+}
+.search .cards {
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 0;
+}
+.search .cards .dislike {
+  height: 90vh;
+  width: 100%;
+  justify-self: end;
+  pointer-events: none;
+  background-color: red;
+  opacity: 0;
+}
+.search .cards .like {
+  height: 100%;
+  width: 100%;
+  justify-self: start;
+  pointer-events: none;
+  background-color: greenyellow;
+  opacity: 0;
+}
+@media screen and (max-width: 767px) {
+  .search .cards {
+    min-height: 70vh;
+  }
+}
+.search .row {
+  margin: 0;
+  padding: 0;
+}
+.search .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.search .container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+/*# sourceMappingURL=Search.css.map */

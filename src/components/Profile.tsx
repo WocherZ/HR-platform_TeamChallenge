@@ -11,10 +11,10 @@ const Profile = () => {
         <div className="profile">
             <Container fluid>
                 <Row style={{display: "flex", justifyContent: "center"}}>
-                    <Col xs={4} sm={4} lg={2}>
+                    <Col xs={5} sm={4} lg={2}>
                         <Image className="ava" src={require("./images/ava.jpg")}/>
                     </Col>
-                    <Col xs={8} sm={8} lg={4} xl={3} style={{display: "flex", justifyContent: "center"}}>
+                    <Col xs={7} sm={8} lg={4} xl={3} style={{display: "flex", justifyContent: "center"}}>
                         <div>
                             <div className="line">
                                 <div><p>ФИО:</p></div>
