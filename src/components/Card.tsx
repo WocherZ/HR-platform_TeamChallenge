@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
-import {useDrag} from 'react-dnd'
 import "./css/Card.css"
+import TagsContainer from "../ui/TagsContainer";
 
 //Обработчики вне квадрата
 const Card = (props: {
@@ -21,7 +21,22 @@ const Card = (props: {
                  props.setIsDown(true)
              }}
         >
-
+            <div className="info-container">
+                <div className="top-part">
+                    <h3>Провессия. Должность</h3>
+                    <p>Дата рождения: dd.mm.yyyy</p>
+                    <p>Город: Город</p>
+                    <p>Образование: Высшее</p>
+                    <p>Желаемая зарплата: 99999р</p>
+                    <p>Опыт работы: 0 лет</p>
+                </div>
+            </div>
+            <div className="scroll-container">
+                <TagsContainer
+                    tags={["asd", "asd", "skd", "asd", "asd", "skd", "asd", "asd", "skd", "asd", "asd", "skd",
+                        "asd", "asd", "skd", "asd", "asd", "skd", "asd", "asd", "skd", "asd", "asd", "skd",
+                    ]}/>
+            </div>
         </div>
     );
 };

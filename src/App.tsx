@@ -12,14 +12,11 @@ import {isAuth} from "./api/Api";
 import Logout from "./components/Logout";
 import Registration from "./components/Registration";
 import ResumeForm from "./components/ResumeForm";
-import {DndProvider} from "react-dnd-multi-backend";
-import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 function App() {
     return (
         <Fragment>
             <Navigation/>
-            <DndProvider options={HTML5toTouch}>
                 <main>
                     <Routes>
                         <Route path="/" element={<About/>}/>
@@ -31,7 +28,6 @@ function App() {
                         {isAuth() && <Route path="/logout" element={<Logout/>}/>}
                     </Routes>
                 </main>
-            </DndProvider>
             <Footer/>
         </Fragment>
     );

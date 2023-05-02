@@ -1,0 +1,15 @@
+.tags {
+  width: 100%;
+  max-width: 800px;
+}
+.tags .tag {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;
+  background-color: lightgray;
+}
+
+/*# sourceMappingURL=TagsContainer.css.map */

@@ -4,6 +4,8 @@ import "./css/Search.css"
 import SelectInput from "../ui/SelectInput";
 import RangeInput from "../ui/RangeInput";
 import Card from "./Card";
+import Btn from "../ui/Btn";
+import Resume from "./Resume";
 
 const Search = () => {
     const [profession, setProfession] = useState("")
@@ -18,6 +20,8 @@ const Search = () => {
     const [startX, setStartX] = useState(0)
     const like = useRef(null)
     const dislike = useRef(null)
+    const moreInfo = useRef(null)
+    const moreInfoPanel = useRef(null)
     return (
         <div className="search">
             <Container fluid>
@@ -81,7 +85,7 @@ const Search = () => {
                              //@ts-ignore
                              dislike.current.style.opacity = 0
                          }}
-                         onMouseLeave={e =>{
+                         onMouseLeave={e => {
                              e.preventDefault()
                              setIsDown(false)
                              setLeft(0)
@@ -122,10 +126,30 @@ const Search = () => {
                     >
                         <Container fluid>
                             <Row>
+                                <div className="card-more-info" ref={moreInfo}>
+                                    <Resume/>
+                                </div>
+                                <div className="more-info-panel" ref={moreInfoPanel}>
+                                    <div style={{display: "flex", flexDirection: "row"}}>
+                                        <div>
+                                            <Btn text={"dislike"} onClick={() => {
+                                            }}/>
+                                            <Btn text={"Скрыть"} onClick={() => {
+                                                //@ts-ignore
+                                                moreInfo.current.style.display = "none"
+                                                //@ts-ignore
+                                                moreInfoPanel.current.style.display = "none"
+                                            }}/>
+                                            <Btn text={"like"} onClick={() => {
+                                            }}/>
+                                        </div>
+                                    </div>
+                                </div>
                                 <Col className="col" xs={2} sm={2} md={3}>
                                     <div className="dislike" ref={dislike}></div>
                                 </Col>
-                                <Col className="col" xs={8} sm={8} md={6}>
+                                <Col className="col" xs={8} sm={8} md={6}
+                                     style={{display: "flex", flexDirection: "column"}}>
                                     <Card left={left}
                                           bottom={bottom}
                                           setBottom={setBottom}
@@ -133,6 +157,18 @@ const Search = () => {
                                           setIsDown={setIsDown}
                                           setStartX={setStartX}
                                     />
+                                    <div style={{display: "flex", flexDirection: "row"}}>
+                                        <Btn text={"dislike"} onClick={() => {
+                                        }}/>
+                                        <Btn text={"more info"} onClick={() => {
+                                            //@ts-ignore
+                                            moreInfo.current.style.display = "block"
+                                            //@ts-ignore
+                                            moreInfoPanel.current.style.display = "flex"
+                                        }}/>
+                                        <Btn text={"like"} onClick={() => {
+                                        }}/>
+                                    </div>
                                 </Col>
                                 <Col className="col" xs={2} sm={2} md={3}>
                                     <div className="like" ref={like}></div>

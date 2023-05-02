@@ -1,5 +1,6 @@
 import React from 'react';
 import "./css/Resume.css"
+import TagsContainer from "../ui/TagsContainer";
 
 const Resume = () => {
     const tags = ["css", "js", "html", "react", "css", "js", "html", "react", "css", "js", "html", "react"]
@@ -91,11 +92,7 @@ const Resume = () => {
                     long description long descriptionlong description</p>
             </div>
             <h3>Ключевые навыки</h3>
-            <div className="tags">
-                {tags.map(t =>
-                    <div className="tag">{t}</div>
-                )}
-            </div>
+            <TagsContainer tags={tags}/>
         </div>
     );
 };

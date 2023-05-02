@@ -68,6 +68,28 @@
       opacity: 0;
     }
 
+    .card-more-info {
+      position: absolute;
+      background-color: white;
+      z-index: 20;
+      display: none;
+      height: 80vh;
+      overflow-y: auto;
+    }
+
+    .more-info-panel {
+      height: 10vh;
+      display: none;
+      position: absolute;
+      bottom: 0;
+      flex-direction: row;
+      justify-content: center;
+      pointer-events: initial;
+      user-select: initial;
+      max-height: 70px;
+      z-index: 20;
+    }
+
     @media screen {
       @media (max-width: 767px) {
         min-height: 70vh;
