@@ -20,3 +20,8 @@ main {
 .row {
   width: 100%;
 }
+
+.container-fluid, .col, .row {
+  margin: 0;
+  padding: 0;
+}

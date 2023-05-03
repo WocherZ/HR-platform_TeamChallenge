@@ -12,6 +12,7 @@ import {isAuth} from "./api/Api";
 import Logout from "./components/Logout";
 import Registration from "./components/Registration";
 import ResumeForm from "./components/ResumeForm";
+import Matches from "./components/Matches";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<About/>}/>
                         {isAuth() && <Route path="/profile" element={<Profile/>}/>}
+                        {isAuth() && <Route path="/matches" element={<Matches/>}/>}
                         {isAuth() && <Route path="/resume_form" element={<ResumeForm/>}/>}
                         <Route path="/search" element={<Search/>}/>
                         {!isAuth() && <Route path="/login" element={<Login/>}/>}
