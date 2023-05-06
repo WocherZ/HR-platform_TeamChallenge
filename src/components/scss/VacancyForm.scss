@@ -1,0 +1,27 @@
+.vacancy-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form-container {
+    margin-top: 30px;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .add-question {
+    margin-top: 30px;
+  }
+
+  .add-variant {
+    margin-bottom: 50px;
+    max-width: 300px;
+  }
+
+  .publish {
+    margin-top: 100px;
+  }
+
+}

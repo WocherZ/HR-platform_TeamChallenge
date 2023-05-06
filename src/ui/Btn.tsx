@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Button} from "react-bootstrap";
 import "./css/Btn.css"
 
-const Btn = (props: {text: string, onClick: () => void }) => {
+interface IButton {
+    text: string,
+    onClick: () => void,
+    className?: string,
+}
+
+const Btn: FC<IButton> = ({className, text, onClick}) => {
     return (
-        <Button className="btn" onClick={props.onClick}>
-            {props.text}
+        <Button className={"btn " + className} onClick={onClick}>
+            {text}
         </Button>
     );
 };

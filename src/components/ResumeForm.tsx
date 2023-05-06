@@ -5,6 +5,7 @@ import {Col, Container, Form, Row} from "react-bootstrap";
 import Btn from "../ui/Btn";
 import ChoiceInput from "../ui/ChoiceInput";
 import TextInput from "../ui/TextInput";
+import FormRadio from "../ui/FormRadio";
 
 const ResumeForm = () => {
     const [profession, setProfession] = useState("")
@@ -32,34 +33,23 @@ const ResumeForm = () => {
                             <h3>Образование</h3>
                         </Col>
                         <Col xs={6} sm={6}>
-                            <Form name="edu_from">
-                                {edu.map((e, i) => (
-                                    <div key={e} className="mb-3">
-                                        <Form.Check
-                                            label={e}
-                                            name={'edu'}
-                                            type={'radio'}
-                                            id={e}
-                                            onChange={e => {
-                                                setEducation(e.target.id)
-                                                setUniversity([{
-                                                    name: "",
-                                                    faculty: "",
-                                                    specialization: "",
-                                                    lastYear: ""
-                                                }])
-                                                setCompany([{name: "", post: "", todos: "", workFrom: "", workTo: ""}])
-                                            }}
-                                        />
-                                    </div>
-                                ))}
-                            </Form>
+                            <FormRadio name={"edu_form"} variants={edu} onChange={e => {
+                                setEducation(e.target.value)
+                                setUniversity([{
+                                    name: "",
+                                    faculty: "",
+                                    specialization: "",
+                                    lastYear: ""
+                                }])
+                                setCompany([{name: "", post: "", todos: "", workFrom: "", workTo: ""}])
+                            }}/>
                         </Col>
                     </Row>
                 </Container>
                 {education && education !== edu[0] &&<h3>Учебное заведение</h3>}
                 {education && education !== edu[0] && university.map((uni, i) =>
                     <div className="university">
+                        <div>
                         <Input text={"Учебное заведение"} value={uni.name} setValue={(val) => {
                             let copy_university = [...university]
                             copy_university[i].name = val
@@ -82,6 +72,12 @@ const ResumeForm = () => {
                             copy_university[i].lastYear = val
                             setUniversity(copy_university)
                         }}/>
+                        </div>
+                        <div>
+                            <Btn text={"Удалить"} onClick={() => {
+                                setUniversity(university.filter(u => u != uni))
+                            }}/>
+                        </div>
                     </div>
                 )}
                 {education && education !== edu[0] &&
@@ -94,6 +90,7 @@ const ResumeForm = () => {
                 {education && <h3>Опыт работы</h3>}
                 {education && company.map( (com,i) =>
                     <div className="company">
+                        <div>
                         <Input text={"Название компании"} value={com.name} setValue={(val) => {
                             let copy_company = [...company]
                             copy_company[i].name = val
@@ -121,6 +118,12 @@ const ResumeForm = () => {
                             copy_company[i].workTo = val
                             setCompany(copy_company)
                         }}/>
+                        </div>
+                        <div>
+                            <Btn text={"Удалить"} onClick={() => {
+                                setCompany(company.filter(c => c != com))
+                            }}/>
+                        </div>
                     </div>
                 )}
                 {education &&
@@ -129,8 +132,7 @@ const ResumeForm = () => {
                         copy_company.push({name: "", post: "", todos: "", workFrom: "", workTo: ""})
                         setCompany(copy_company);
                     }}/>}
-                {education && <h3>Информация о себе</h3>}
-                {education && <TextInput value={info} setValue={setInfo}/>}
+                {education && <TextInput value={info} setValue={setInfo} label={"О себе"}/>}
                 {education &&
                     <Container>
                         <Row>
@@ -143,6 +145,7 @@ const ResumeForm = () => {
                         </Row>
                     </Container>
                 }
+                <Btn className="publish" text={"Опубликовать резюме"} onClick={() => {}}/>
             </div>
         </div>
     );

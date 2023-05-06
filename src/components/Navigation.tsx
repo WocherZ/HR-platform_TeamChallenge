@@ -15,6 +15,7 @@ const Navigation = () => {
                         <Nav.Link as={Link} to="/search">Поиск</Nav.Link>
                         {isAuth() && <Nav.Link as={Link} to="/profile">Профиль</Nav.Link>}
                         {isAuth() && <Nav.Link as={Link} to="/matches">Мэтчи</Nav.Link>}
+                        <Nav.Link as={Link} to="/profile_hr">HR</Nav.Link>
                     </Nav>
                     <Nav>
                         {isAuth()

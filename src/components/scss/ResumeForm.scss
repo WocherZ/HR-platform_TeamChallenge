@@ -5,6 +5,8 @@
 
   .inputs {
     width: 500px;
+    display: flex;
+    flex-direction: column;
 
     * {
       margin: {
@@ -14,11 +16,17 @@
     }
   }
 
-  .university {
+  .university, .company {
     border-top: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
-  .company {
-    border-top: 2px solid black;
+  .publish {
+    margin: {
+      top: 100px;
+    }
+
   }
 }

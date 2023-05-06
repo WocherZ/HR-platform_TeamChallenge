@@ -2,22 +2,24 @@ import React, {useRef, useState} from 'react';
 import "./css/ChoiceInput.css"
 import {Form, InputGroup} from "react-bootstrap";
 import Btn from "./Btn";
+import TagsContainer from "./TagsContainer";
 
 const ChoiceInput = (props: {
     text: string,
     value: string,
     setValue: (s: string) => void
 }) => {
-    const [tags, setTags] = useState<String []>([])
+    const [tags, setTags] = useState<string []>([])
     const choiceField = useRef(null)
     const [choice, setChoice] = useState(["CSS", "JS", "HTML", "Java", "Spring", "CSS", "JS", "HTML", "Java", "Spring"])
     return (
         <div className="choice-input">
-            <div className="tags">
-                {tags.map(t =>
-                    <div className="tag">{t}</div>
-                )}
-            </div>
+            {/*<div className="tags">*/}
+            {/*    {tags.map(t =>*/}
+            {/*        <div className="tag">{t}</div>*/}
+            {/*    )}*/}
+            {/*</div>*/}
+            <TagsContainer tags={tags} onDelete={(val) => setTags(tags.filter((t, i) => i !== val))}/>
             <InputGroup className="mb-3">
                 <InputGroup.Text className="input-text" id="basic-addon">{props.text}</InputGroup.Text>
                 <Form.Control

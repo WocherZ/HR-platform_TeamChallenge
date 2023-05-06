@@ -5,16 +5,21 @@
 }
 .resume-form .inputs {
   width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 .resume-form .inputs * {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.resume-form .university {
+.resume-form .university, .resume-form .company {
   border-top: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.resume-form .company {
-  border-top: 2px solid black;
+.resume-form .publish {
+  margin-top: 100px;
 }
 
 /*# sourceMappingURL=ResumeForm.css.map */

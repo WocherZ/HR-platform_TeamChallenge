@@ -22,6 +22,8 @@ const Search = () => {
     const dislike = useRef(null)
     const moreInfo = useRef(null)
     const moreInfoPanel = useRef(null)
+    const [experience, setExperience] = useState("")
+
     return (
         <div className="search">
             <Container fluid>
@@ -31,17 +33,27 @@ const Search = () => {
                             <Row className="filters">
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Профессия</h3>
-                                    <SelectInput options={["Программист", "Грузчик", "Руководитель"]}
+                                    <SelectInput default={"Все"}
+                                                 options={["Программист", "Грузчик", "Руководитель"]}
                                                  setValue={setProfession}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Должность</h3>
-                                    <SelectInput options={["Frontend", "BAckend", "SMthElSE"]} setValue={setPost}/>
+                                    <SelectInput default={"Все"}
+                                                 options={["Frontend", "BAckend", "SMthElSE"]}
+                                                 setValue={setPost}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Город</h3>
-                                    <SelectInput options={["Moscow", "Saransk", "Saratov", "Tumen"]}
+                                    <SelectInput default={"Все"}
+                                                 options={["Moscow", "Saransk", "Saratov", "Tumen"]}
                                                  setValue={setCity}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={12} xl={12} className="filter">
+                                    <h3>Опыт работы</h3>
+                                    <SelectInput default={"Опыт не важен"}
+                                                 options={["нет опыта", "меньше года", "1-3 года", "3-6 лет", "больше 6 лет"]}
+                                                 setValue={setExperience}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Зарплата</h3>

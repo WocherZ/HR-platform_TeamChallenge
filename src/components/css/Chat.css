@@ -20,11 +20,6 @@
   margin: 0;
   text-align: center;
 }
-@media screen and (min-width: 767px) {
-  .chat .head .back {
-    display: none;
-  }
-}
 .chat .input-field {
   position: absolute;
   bottom: 0;
