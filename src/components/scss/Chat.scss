@@ -16,10 +16,21 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: start;
     background-color: white;
     p {
       margin: 0;
       text-align: center;
+    }
+
+    .delete-btn{
+      position: absolute;
+      right: 0;
+    }
+
+    .profile-btn {
+      position: absolute;
+      right: 80px;
     }
 
   }
@@ -64,6 +75,22 @@
       background-color: white;
       border-radius: 5px;
       min-width: 50px;
+
+    }
+
+    .choose-time {
+      position: relative;
+      clear: both;
+      width: auto;
+
+      .calendar {
+        width: 100%;
+        height: auto;
+        background-color: white;
+        position: absolute;
+        bottom: 50px;
+        left: 0px;
+      }
     }
   }
 

@@ -16,7 +16,7 @@ const TagsContainer: FC<ITags> = ({tags, onDelete=undefined}) => {
                     <>
                         {t}
                         {onDelete !== undefined
-                            && <Btn text={"del"} onClick={() => {
+                            && <Btn style={{padding: 0}} text={"X"} onClick={() => {
                                 onDelete(i)
                         }}/>
                         }

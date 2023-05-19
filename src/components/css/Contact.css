@@ -30,4 +30,9 @@
   overflow-x: hidden;
 }
 
+.contact-active {
+  background-color: mediumpurple;
+  color: white;
+}
+
 /*# sourceMappingURL=Contact.css.map */

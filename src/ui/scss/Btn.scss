@@ -3,8 +3,27 @@
   margin: 5px;
   background-color: black;
   border: none;
+  color: lightblue;
 
   &:hover {
-    background-color: green;
+    background-color: mediumpurple;
   }
+
+  &:focus {
+    background-color: black;
+    color: lightblue;
+  }
+
+  &:active {
+    background-color: mediumpurple!important;
+  }
+
+  &:disabled {
+    background-color: mediumpurple;
+  }
+}
+
+.btn-active {
+  background-color: mediumpurple!important;
+  color: white;
 }

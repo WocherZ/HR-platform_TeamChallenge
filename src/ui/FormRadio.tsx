@@ -1,5 +1,6 @@
 import React, {FC, ReactEventHandler, ReactNode} from 'react';
 import {Form} from "react-bootstrap";
+import "./css/FormRadio.css"
 
 interface IFormRadio {
     name: string,

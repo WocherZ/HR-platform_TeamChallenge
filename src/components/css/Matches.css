@@ -3,7 +3,7 @@
   padding: 0;
 }
 .matches .contacts {
-  background-color: lightblue;
+  background-color: white;
   height: 90vh;
   overflow-y: auto;
 }
@@ -13,11 +13,10 @@
   }
 }
 .matches .col-chat {
-  background-color: aqua;
+  background-color: lightblue;
   height: 90vh;
   overflow-y: auto;
   z-index: 20;
-  display: none;
 }
 @media screen and (max-width: 767px) {
   .matches .col-chat {

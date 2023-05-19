@@ -1,25 +1,10 @@
 .choice-input {
   padding-bottom: 300px;
 
-  .tag {
-    display: inline-block;
-    padding: {
-      left: 10px;
-      right: 10px;
-      top: 5px;
-      bottom: 5px;
-    };
-    margin: 5px;
-    background-color: lightgray;
-  }
-
-
   .choice-field {
-    display: none;
     border: 1px solid black;
     position: absolute;
     padding: {
-      top: 40px;
       left: 20px;
       right: 20px;
     };
@@ -27,7 +12,7 @@
     .close-btn {
       color: red;
       position: absolute;
-      top: -10px;
+      top: -15px;
       right: 5px;
     }
   }

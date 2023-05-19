@@ -35,16 +35,5 @@
 .profile .resumes .col {
   padding: 0;
 }
-.profile .resumes .accordion {
-  width: 100%;
-  max-width: 1000px;
-  --bs-accordion-border-color: black;
-}
-.profile .resumes .accordion .accordion-button:not(.collapsed)::after {
-  background-image: var(--bs-accordion-btn-icon);
-}
-.profile .resumes .accordion .accordion-button:focus {
-  box-shadow: none;
-}
 
 /*# sourceMappingURL=Profile.css.map */

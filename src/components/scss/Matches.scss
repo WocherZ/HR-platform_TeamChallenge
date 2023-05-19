@@ -7,7 +7,7 @@ $height: 90vh;
   }
 
   .contacts {
-    background-color: lightblue;
+    background-color: white;
     height: $height;
     overflow-y: auto;
     @media screen {
@@ -18,11 +18,10 @@ $height: 90vh;
   }
 
   .col-chat {
-    background-color: aqua;
+    background-color: lightblue;
     height: $height;
     overflow-y: auto;
     z-index: 20;
-    display: none;
     @media screen {
       @media (max-width: 767px) {
         display: none;

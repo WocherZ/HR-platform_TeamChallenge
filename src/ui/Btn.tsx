@@ -6,11 +6,12 @@ interface IButton {
     text: string,
     onClick: () => void,
     className?: string,
+    style?: {},
 }
 
-const Btn: FC<IButton> = ({className, text, onClick}) => {
+const Btn: FC<IButton> = ({className, text, onClick, style}) => {
     return (
-        <Button className={"btn " + className} onClick={onClick}>
+        <Button style={style} className={"btn " + className} onClick={onClick}>
             {text}
         </Button>
     );

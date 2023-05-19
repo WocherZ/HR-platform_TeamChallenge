@@ -1,0 +1,19 @@
+.navbar {
+  background-color: black;
+
+  .active {
+    color: lightblue!important;
+  }
+
+  a {
+    color: mediumpurple;
+
+    &:hover, &:active, &:focus {
+      color: lightblue;
+    }
+  }
+
+  .navbar-toggler {
+    background-color: mediumpurple;
+  }
+}

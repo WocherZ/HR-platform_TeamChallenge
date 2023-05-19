@@ -72,7 +72,7 @@ const Search = () => {
                                      setRotation("15deg")
                                      setLeft(100)
                                      //@ts-ignore
-                                     like.current.style.opacity = 1
+                                     like.current.style.opacity = 0.5
                                      //@ts-ignore
                                      dislike.current.style.opacity = 0
 
@@ -82,7 +82,7 @@ const Search = () => {
                                      //@ts-ignore
                                      like.current.style.opacity = 0
                                      //@ts-ignore
-                                     dislike.current.style.opacity = 1
+                                     dislike.current.style.opacity = 0.5
                                  }
                              }
                          }}
@@ -113,7 +113,7 @@ const Search = () => {
                                  setRotation("10deg")
                                  setLeft(20)
                                  //@ts-ignore
-                                 like.current.style.opacity = 1
+                                 like.current.style.opacity = 0.5
                                  //@ts-ignore
                                  dislike.current.style.opacity = 0
 
@@ -123,7 +123,7 @@ const Search = () => {
                                  //@ts-ignore
                                  like.current.style.opacity = 0
                                  //@ts-ignore
-                                 dislike.current.style.opacity = 1
+                                 dislike.current.style.opacity = 0.5
                              }
                          }}
                          onTouchEnd={e => {

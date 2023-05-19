@@ -4,6 +4,7 @@ import {Accordion, Button, Col, Container, Image, Row} from "react-bootstrap";
 import Btn from "../ui/Btn";
 import {useNavigate} from "react-router";
 import Resume from "./Resume";
+import DropDowns from "../ui/DropDowns";
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -45,26 +46,7 @@ const Profile = () => {
                         <h1>Мои резюме</h1>
                     </Col>
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Программист. Frontend-разработчик</Accordion.Header>
-                                <Accordion.Body>
-                                    <Resume/>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Программист. Frontend-разработчик</Accordion.Header>
-                                <Accordion.Body>
-                                    <Resume/>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>Программист. Frontend-разработчик</Accordion.Header>
-                                <Accordion.Body>
-                                    <Resume/>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
+                        <DropDowns titles={["прогер", "джавист"]} bodies={[<Resume/>, <Resume/>]}/>
                     </Col>
                 </Row>
             </Container>

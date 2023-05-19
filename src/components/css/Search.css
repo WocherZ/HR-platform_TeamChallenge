@@ -4,7 +4,7 @@
   user-select: none;
 }
 .search .filters {
-  background-color: lightgray;
+  background-color: mediumpurple;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -38,7 +38,7 @@
   }
 }
 .search .cards {
-  background-color: aqua;
+  background-color: lightblue;
   display: flex;
   justify-content: center;
   align-items: center;

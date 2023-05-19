@@ -3,7 +3,7 @@ import "./css/ResumeForm.css"
 import Input from "../ui/Input";
 import {Col, Container, Form, Row} from "react-bootstrap";
 import Btn from "../ui/Btn";
-import ChoiceInput from "../ui/ChoiceInput";
+import TagsInput from "../ui/TagsInput";
 import TextInput from "../ui/TextInput";
 import FormRadio from "../ui/FormRadio";
 
@@ -19,9 +19,12 @@ const ResumeForm = () => {
     const [company, setCompany] = useState([{name: "", post: "", todos: "", workFrom: "", workTo: ""}])
     const [info, setInfo] = useState("")
     const [tag, setTag] = useState("")
+    const [display, setDisplay] = useState("none")
 
     return (
-        <div className="resume-form">
+        <div className="resume-form" onClick={() => {
+            setDisplay("none")
+        }}>
             <div className="inputs">
                 <Input text={"Профессия"} value={profession} setValue={setProfession}/>
                 <Input text={"Должность"} value={post} setValue={setPost}/>
@@ -140,7 +143,7 @@ const ResumeForm = () => {
                                 <h3>Ключевые навыки</h3>
                             </Col>
                             <Col xs={8} sm={8}>
-                                <ChoiceInput text={"Навыки"} value={tag} setValue={setTag}/>
+                                <TagsInput display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
                             </Col>
                         </Row>
                     </Container>

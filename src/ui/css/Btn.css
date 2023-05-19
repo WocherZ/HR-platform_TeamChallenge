@@ -3,9 +3,25 @@
   margin: 5px;
   background-color: black;
   border: none;
+  color: lightblue;
 }
 .btn:hover {
-  background-color: green;
+  background-color: mediumpurple;
+}
+.btn:focus {
+  background-color: black;
+  color: lightblue;
+}
+.btn:active {
+  background-color: mediumpurple !important;
+}
+.btn:disabled {
+  background-color: mediumpurple;
+}
+
+.btn-active {
+  background-color: mediumpurple !important;
+  color: white;
 }
 
 /*# sourceMappingURL=Btn.css.map */

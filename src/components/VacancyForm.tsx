@@ -3,10 +3,10 @@ import Input from "../ui/Input";
 import "./css/VacancyForm.css"
 import TextInput from "../ui/TextInput";
 import {Button, Col, Container, Row} from "react-bootstrap";
-import ChoiceInput from "../ui/ChoiceInput";
+import TagsInput from "../ui/TagsInput";
 import SelectInput from "../ui/SelectInput";
 import Btn from "../ui/Btn";
-import IQuestion from "../types/types";
+import {IQuestion} from "../types/types";
 import FormRadio from "../ui/FormRadio";
 
 const VacancyForm = () => {
@@ -20,9 +20,12 @@ const VacancyForm = () => {
     const [desirable, setDesirable] = useState("")
     const [offer, setOffer] = useState("")
     const [questions, setQuestions] = useState<IQuestion[]>([])
+    const [display, setDisplay] = useState("none")
 
     return (
-        <div className="vacancy-form">
+        <div className="vacancy-form" onClick={() => {
+            setDisplay("none")
+        }}>
             <h3>Создание вакансии</h3>
             <div className="form-container">
                 <Input text={"Название компании"} value={company} setValue={setCompany}/>
@@ -41,7 +44,7 @@ const VacancyForm = () => {
                             <h3>Ключевые навыки</h3>
                         </Col>
                         <Col xs={8} sm={8}>
-                            <ChoiceInput text={"Навыки"} value={tag} setValue={setTag}/>
+                            <TagsInput display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
                         </Col>
                     </Row>
                 </Container>
