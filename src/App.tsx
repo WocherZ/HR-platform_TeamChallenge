@@ -13,7 +13,6 @@ import Logout from "./components/Logout";
 import Registration from "./components/Registration";
 import ResumeForm from "./components/ResumeForm";
 import Matches from "./components/Matches";
-import HR from "./components/HR";
 import VacancyForm from "./components/VacancyForm";
 import {useSelector} from "react-redux";
 
@@ -35,7 +34,6 @@ function App() {
                     <Routes>
                         <Route path="/" element={<About/>}/>
                         {isAuth && <Route path="/profile" element={<Profile/>}/>}
-                        {isAuth && <Route path="/profile_hr" element={<HR/>}/>}
                         {isAuth && <Route path="/vacancy_form" element={<VacancyForm/>}/>}
                         {isAuth && <Route path="/matches" element={<Matches/>}/>}
                         {isAuth && <Route path="/resume_form" element={<ResumeForm/>}/>}

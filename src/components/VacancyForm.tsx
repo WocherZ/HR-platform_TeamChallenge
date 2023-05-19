@@ -31,7 +31,7 @@ const VacancyForm = () => {
                 <Input text={"Название компании"} value={company} setValue={setCompany}/>
                 <Input text={"Должность"} value={post} setValue={setPost}/>
                 <Input text={"Зарплата"} value={salary} setValue={setSalary}/>
-                <SelectInput default={"Опыт не важен"}
+                <SelectInput default_={"Опыт не важен"}
                              options={["нет опыта", "меньше года", "1-3 года", "3-6 лет", "больше 6 лет"]}
                              setValue={setExperience}/>
                 <TextInput value={todos} setValue={setTodos} label={"Обязанности"}/>

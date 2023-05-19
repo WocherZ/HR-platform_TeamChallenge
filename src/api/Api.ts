@@ -74,15 +74,15 @@ export async function getSkills() {
 }
 
 //Подтаскиваются резюме
-export async function getResumes() {
-    const response = await fetch(`/api/resumes`)
+export async function getResumes(userKey = "") {
+    const response = await fetch(`/api/resumes/${userKey}/`)
     const json = await response.json()
     return json
 }
 
 //получить отдельное резюме
 export async function getResume(resumeId: number) {
-    const response = await fetch(`/api/resumes/${resumeId}`)
+    const response = await fetch(`/api/resumes/${resumeId}/`)
     const json = await response.json()
     return json
 }
@@ -97,8 +97,8 @@ export async function createResume(userKey: string, resume: IResume) {
 }
 
 //Подтаскиваются вакансии
-export async function getVacancies() {
-    const response = await fetch(`/api/vacancies/`)
+export async function getVacancies(userKey = "") {
+    const response = await fetch(`/api/vacancies/${userKey}/`)
     const json = await response.json()
     return json
 }
@@ -128,7 +128,7 @@ export async function getTest(vacancyId: number) {
 
 //Добавить тест к вакансии
 export async function createTest(test: ITest, vacancyId: number) {
-    const response = await fetch(`/api/tests/${vacancyId}`, {
+    const response = await fetch(`/api/tests/${vacancyId}/`, {
         method: 'POST',
         body: JSON.stringify(test)
     })
@@ -137,7 +137,7 @@ export async function createTest(test: ITest, vacancyId: number) {
 
 //Лайк резюме
 export async function setLike(vacancyId: number, resumeId: number) {
-    const response = await fetch('/api/likes', {
+    const response = await fetch('/api/likes/', {
         method: 'POST',
         body: JSON.stringify({vacancyId: vacancyId, resumeID: resumeId})
     })
@@ -146,7 +146,7 @@ export async function setLike(vacancyId: number, resumeId: number) {
 
 //Получить данные пользователя
 export async function getUser(userKey: number) {
-    const response = await fetch(`/api/users/${userKey}`)
+    const response = await fetch(`/api/users/${userKey}/`)
     const json = await response.json()
     return json
 }
@@ -164,7 +164,7 @@ export async function logIn(login_: string, password: string) {
 
 //Регистрация
 export async function createAccount(data: IUser) {
-    const response = await fetch(`/api/registration`, {
+    const response = await fetch(`/api/registration/`, {
         method: 'POST',
         body: JSON.stringify(data)
     })

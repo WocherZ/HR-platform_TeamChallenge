@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Form } from 'react-bootstrap';
 import "./css/SelectInput.css"
 
-const SelectInput = (props: {default:string, options: string[], setValue: (s: string) => void}) => {
+interface IInput {
+    default_: string,
+    options: string[],
+    setValue: (s: string) => void
+}
+
+const SelectInput: FC<IInput> = ( {default_, options, setValue}) => {
     return (
-        <Form.Select className="select-input" onChange={(e) => {props.setValue(e.target.value)}}>
-            <option value="all">{props.default}</option>
-            {props.options.map( (opt,i)  =>
+        <Form.Select className="select-input" onChange={(e) => {setValue(e.target.value)}}>
+            <option value="all">{default_}</option>
+            {options.map( (opt,i)  =>
                 <option key={i} value={opt}>{opt}</option>
             )}
         </Form.Select>

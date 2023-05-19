@@ -11,7 +11,7 @@ export interface ITest {
     id?: number,
     vacancyId: number,
     questions?: IQuestion[]
-    status: "in progress" | "completed"
+    status: "in progress" | "completed" | ""
 }
 
 export interface IContact {
@@ -28,18 +28,10 @@ export interface IMessage {
     contactId: number;
 }
 
-export interface ILikeVacancyToResume {
+export interface ILike {
     id?: number,
-    idVacancyFrom: number;
-    idResumeTo: number;
-    status: "like" | "dislike";
-}
-
-export interface ILikeResumeToVacancy {
-    id?: number,
-    idResumeFrom: number;
-    idVacancyTo: number;
-    status: "like" | "dislike";
+    idVacancy: number;
+    idResume: number;
 }
 
 export interface IRecentLikeVacancyToResume {
@@ -70,7 +62,7 @@ export interface IUser {
 
 export interface IUniversity {
     id?: number,
-    universityName: string,
+    name: string,
     faculty: string,
     specialization: string,
     graduationYear: number,
@@ -104,6 +96,7 @@ export interface ICity {
 export interface IJob {
     id?: number,
     companyName: string,
+    profession: string,
     post: string,
     todos: string,
     workFrom: string,
@@ -113,27 +106,32 @@ export interface IJob {
 export interface IResume {
     id?: number,
     ownerId: number,
+    profession: string,
+    post: string,
     city: string,
     salary: number,
     education: string,
+    workExperience: string,
     universities: IUniversity[],
     jobs: IJob[],
     description: string,
-    skills: string,
+    skills: string[],
 }
 
 export interface IVacancy {
     id?: number,
     ownerId: number,
     companyName: string,
+    profession: string,
     post: string,
+    city: string,
     salary: number,
-    workExperienceId: number,
+    workExperience: string,
     todos: string,
     requirements: string,
     desirable: string,
     offer: string,
-    skills: string,
+    skills: string[],
 }
 
 

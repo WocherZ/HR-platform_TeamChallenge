@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import "./css/Search.css"
 import SelectInput from "../ui/SelectInput";
@@ -6,10 +6,20 @@ import RangeInput from "../ui/RangeInput";
 import Card from "./Card";
 import Btn from "../ui/Btn";
 import Resume from "./Resume";
+import {getCities, getPosts, getProfessions, getResume, getResumes, getVacancies, getWorkExperiences} from "../api/Api";
+import {setExperiences} from "../redux/experiencesSlice";
+import {ICity, IPost, IProfession, IResume, IVacancy, IWorkExperience} from "../types/types";
+import {useSelector} from "react-redux";
+import Vacancy from "./Vacancy";
 
 const Search = () => {
-    const [professions, setProfessions] = useState([] as string[])
-    const [posts, setPosts] = useState([] as string[])
+    const [professions, setProfessions] = useState([] as IProfession[])
+    const [posts, setPosts] = useState([] as IPost[])
+    const [cities, setCities] = useState([] as ICity[])
+    const [workExperiences, setWorkExperiences] = useState([] as IWorkExperience[])
+    const [cards, setCards] = useState<IResume[] | IVacancy[]>([])
+    // @ts-ignore
+    const user = useSelector(state => state.user)
 
     const [profession, setProfession] = useState("")
     const [post, setPost] = useState("")
@@ -27,6 +37,36 @@ const Search = () => {
     const moreInfoPanel = useRef(null)
     const [experience, setExperience] = useState("")
 
+    useEffect(() => {
+        Promise.all([getProfessions(), getCities(), getWorkExperiences()]).then(
+            ([professions, cities, experiences]: [IProfession[], ICity[], IWorkExperience[]])=> {
+                setProfessions(professions)
+                setCities(cities)
+                setExperiences(experiences)
+            }
+        )
+        user.role == "user"
+            ? getVacancies().then(
+                vals => {
+                    setCards(vals)
+                }
+            )
+            : getResumes().then(
+                vals => {
+                    setCards(vals)
+                }
+            )
+
+    }, [])
+
+    useEffect(() => {
+        getPosts(profession).then(
+            vals => {
+                setPosts(vals)
+            }
+        )
+    }, [profession])
+
     return (
         <div className="search">
             <Container fluid>
@@ -36,26 +76,26 @@ const Search = () => {
                             <Row className="filters">
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Профессия</h3>
-                                    <SelectInput default={"Все"}
-                                                 options={["Программист", "Грузчик", "Руководитель"]}
+                                    <SelectInput default_={"Все"}
+                                                 options={professions.map(p => p.profession)}
                                                  setValue={setProfession}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Должность</h3>
-                                    <SelectInput default={"Все"}
-                                                 options={["Frontend", "BAckend", "SMthElSE"]}
+                                    <SelectInput default_={"Все"}
+                                                 options={posts.map(p => p.post)}
                                                  setValue={setPost}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Город</h3>
-                                    <SelectInput default={"Все"}
-                                                 options={["Moscow", "Saransk", "Saratov", "Tumen"]}
+                                    <SelectInput default_={"Все"}
+                                                 options={cities.map(c => c.city)}
                                                  setValue={setCity}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
                                     <h3>Опыт работы</h3>
-                                    <SelectInput default={"Опыт не важен"}
-                                                 options={["нет опыта", "меньше года", "1-3 года", "3-6 лет", "больше 6 лет"]}
+                                    <SelectInput default_={"Опыт не важен"}
+                                                 options={workExperiences.map(w => w.workExperience)}
                                                  setValue={setExperience}/>
                                 </Col>
                                 <Col xs={6} sm={6} md={12} xl={12} className="filter">
@@ -142,7 +182,10 @@ const Search = () => {
                         <Container fluid>
                             <Row>
                                 <div className="card-more-info" ref={moreInfo}>
-                                    <Resume/>
+                                    {user.role == "user"
+                                    ?<Vacancy data={cards[0] as IVacancy}/>
+                                    :<Resume data={cards[0] as IResume}/>
+                                    }
                                 </div>
                                 <div className="more-info-panel" ref={moreInfoPanel}>
                                     <div style={{display: "flex", flexDirection: "row"}}>
@@ -171,6 +214,7 @@ const Search = () => {
                                           rotation={rotation}
                                           setIsDown={setIsDown}
                                           setStartX={setStartX}
+                                          data={cards[0]}
                                     />
                                     <div style={{display: "flex", flexDirection: "row"}}>
                                         <Btn text={"dislike"} onClick={() => {

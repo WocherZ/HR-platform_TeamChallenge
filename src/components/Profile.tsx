@@ -1,13 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./css/Profile.css"
 import {Accordion, Button, Col, Container, Image, Row} from "react-bootstrap";
 import Btn from "../ui/Btn";
 import {useNavigate} from "react-router";
 import Resume from "./Resume";
 import DropDowns from "../ui/DropDowns";
+import {useSelector} from "react-redux";
+import {IResume, IUser, IVacancy} from "../types/types";
+import {getResumes, getVacancies} from "../api/Api";
+import Vacancy from "./Vacancy";
 
 const Profile = () => {
     const navigate = useNavigate()
+    // @ts-ignore
+    const user: IUser = useSelector(state => state.user)
+    const [data, setData] = useState<IResume[] | IVacancy[]>([])
+
+    useEffect(() => {
+        user.role == "user"
+            ? getResumes(user.key).then(
+                vals => {
+                    setData(vals)
+                })
+            : getVacancies(user.key).then(
+                vals => {
+                    setData(vals)
+                }
+            )
+
+    }, [])
+
     return (
         <div className="profile">
             <Container fluid>
@@ -19,19 +41,19 @@ const Profile = () => {
                         <div>
                             <div className="line">
                                 <div><p>ФИО:</p></div>
-                                <div><p>Фамилия Имя Отчество</p></div>
+                                <div><p>{user.lastName} {user.firstName} {user.secondName}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Телефон:</p></div>
-                                <div><p>8-999-999-99-99</p></div>
+                                <div><p>{user.phone}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Почта:</p></div>
-                                <div><p>xxxxxxxxxx@gmail.com</p></div>
+                                <div><p>{user.mail}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Дата рождения:</p></div>
-                                <div><p>dd.mm.yyyy</p></div>
+                                <div><p>{user.birthDay}</p></div>
                             </div>
                             <div className="line">
                                 <Btn text={"Добавить резюме"} onClick={() => {
@@ -43,10 +65,14 @@ const Profile = () => {
                 </Row>
                 <Row className="resumes">
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
-                        <h1>Мои резюме</h1>
+                        <h1>Мои резюме/вакансии</h1>
                     </Col>
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
-                        <DropDowns titles={["прогер", "джавист"]} bodies={[<Resume/>, <Resume/>]}/>
+                        <DropDowns titles={data.map(d => d.profession + " - " + d.post)}
+                                   bodies={user.role == "user"
+                                       ? data.map(d => <Resume data={d as IResume}/>)
+                                       : data.map(d => <Vacancy data={d as IVacancy}/>)
+                        }/>
                     </Col>
                 </Row>
             </Container>
