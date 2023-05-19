@@ -32,6 +32,7 @@ export interface ILike {
     id?: number,
     idVacancy: number;
     idResume: number;
+    status: "like" | "dislike"
 }
 
 export interface IRecentLikeVacancyToResume {

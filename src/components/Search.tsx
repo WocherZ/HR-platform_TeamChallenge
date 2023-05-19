@@ -6,7 +6,16 @@ import RangeInput from "../ui/RangeInput";
 import Card from "./Card";
 import Btn from "../ui/Btn";
 import Resume from "./Resume";
-import {getCities, getPosts, getProfessions, getResume, getResumes, getVacancies, getWorkExperiences} from "../api/Api";
+import {
+    getCities,
+    getPosts,
+    getProfessions,
+    getResume,
+    getResumes,
+    getVacancies,
+    getWorkExperiences,
+    setLike
+} from "../api/Api";
 import {setExperiences} from "../redux/experiencesSlice";
 import {ICity, IPost, IProfession, IResume, IVacancy, IWorkExperience} from "../types/types";
 import {useSelector} from "react-redux";
@@ -24,6 +33,7 @@ const Search = () => {
     const [profession, setProfession] = useState("")
     const [post, setPost] = useState("")
     const [city, setCity] = useState("")
+    const [experience, setExperience] = useState("")
     const [salaryFrom, setSalaryFrom] = useState("0")
     const [salaryTo, setSalaryTo] = useState("400000")
     const [left, setLeft] = useState(0)
@@ -35,7 +45,9 @@ const Search = () => {
     const dislike = useRef(null)
     const moreInfo = useRef(null)
     const moreInfoPanel = useRef(null)
-    const [experience, setExperience] = useState("")
+    const [decision, setDecision] = useState<"" | "like" | "dislike">("")
+
+    const [selfFormId, setSelfFormId] = useState(0)
 
     useEffect(() => {
         Promise.all([getProfessions(), getCities(), getWorkExperiences()]).then(
@@ -118,6 +130,7 @@ const Search = () => {
                                      like.current.style.opacity = 0.5
                                      //@ts-ignore
                                      dislike.current.style.opacity = 0
+                                     setDecision("like")
 
                                  } else if (e.clientX < startX - 100) {
                                      setRotation("-15deg")
@@ -126,6 +139,9 @@ const Search = () => {
                                      like.current.style.opacity = 0
                                      //@ts-ignore
                                      dislike.current.style.opacity = 0.5
+                                     setDecision("dislike")
+                                 } else {
+                                     setDecision("")
                                  }
                              }
                          }}
@@ -139,6 +155,10 @@ const Search = () => {
                              like.current.style.opacity = 0
                              //@ts-ignore
                              dislike.current.style.opacity = 0
+                             if (decision !== "") {
+                                 setLike(selfFormId, cards[0].id as number, decision).then()
+                             }
+                             setDecision("")
                          }}
                          onMouseLeave={e => {
                              e.preventDefault()
@@ -150,6 +170,7 @@ const Search = () => {
                              like.current.style.opacity = 0
                              //@ts-ignore
                              dislike.current.style.opacity = 0
+                             setDecision("")
                          }}
                          onTouchMove={e => {
                              if (e.touches[0].clientX > startX + 80) {
@@ -159,6 +180,7 @@ const Search = () => {
                                  like.current.style.opacity = 0.5
                                  //@ts-ignore
                                  dislike.current.style.opacity = 0
+                                 setDecision("like")
 
                              } else if (e.touches[0].clientX < startX - 80) {
                                  setRotation("-10deg")
@@ -167,7 +189,11 @@ const Search = () => {
                                  like.current.style.opacity = 0
                                  //@ts-ignore
                                  dislike.current.style.opacity = 0.5
+                                 setDecision("dislike")
+                             } else {
+                                 setDecision("")
                              }
+                             setDecision("")
                          }}
                          onTouchEnd={e => {
                              setRotation("0deg")
@@ -177,6 +203,11 @@ const Search = () => {
                              like.current.style.opacity = 0
                              //@ts-ignore
                              dislike.current.style.opacity = 0
+                             if (decision !== "") {
+                                 setLike(selfFormId, cards[0].id as number, decision).then()
+                             }
+
+                             setDecision("")
                          }}
                     >
                         <Container fluid>

@@ -136,10 +136,10 @@ export async function createTest(test: ITest, vacancyId: number) {
 }
 
 //Лайк резюме
-export async function setLike(vacancyId: number, resumeId: number) {
+export async function setLike(vacancyId: number, resumeId: number, status: "like" | "dislike") {
     const response = await fetch('/api/likes/', {
         method: 'POST',
-        body: JSON.stringify({vacancyId: vacancyId, resumeID: resumeId})
+        body: JSON.stringify({vacancyId: vacancyId, resumeID: resumeId, status: status})
     })
     return response.ok
 }
