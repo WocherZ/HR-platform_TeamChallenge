@@ -8,6 +8,9 @@ import Btn from "../ui/Btn";
 import Resume from "./Resume";
 
 const Search = () => {
+    const [professions, setProfessions] = useState([] as string[])
+    const [posts, setPosts] = useState([] as string[])
+
     const [profession, setProfession] = useState("")
     const [post, setPost] = useState("")
     const [city, setCity] = useState("")

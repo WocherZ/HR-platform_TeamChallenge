@@ -1,121 +1,174 @@
+import {useSelector} from "react-redux";
+import {IResume, ITest, IUser, IVacancy} from "../types/types";
 
-export function isAuth() {
-    const key = localStorage.getItem('key') || null
-    if (key) {
-        return true
-    } else {
-        return false
-    }
+export async function isUser(key: string) {
+    const response = await fetch(`/api/isUser/${key}/`)
+    const isUser = response.ok
+    return isUser
 }
 
 //Список контактов (они же мэтчи)
-export function getContacts() {
-
+export async function getContacts() {
+    const response = await fetch("/api/contacts/")
+    const json = await response.json()
+    return json
 }
 
 //Отдельный мэтч
-export function getContact(id: number) {
-
+export async function getContact(id: number) {
+    const response = await fetch(`/api/contact/${id}/`)
+    const json = await response.json()
+    return json
 }
 
 //сообщения чата
-export function getChat(contactId: number) {
-
+export async function getChat(contactId: number, userKey: string) {
+    const response = await fetch(`/api/chats/${userKey}/${contactId}/`)
+    const json = await response.json()
+    return json
 }
 
 //Отправить сообщение
-export function sendMessage(chatId: number, msg: string) {
-
+export async function sendMessage(chatId: number, msg: string) {
+    const response = await fetch(`api/chats/${chatId}/`,{
+        method: 'POST',
+        body: JSON.stringify({message: msg})
+    })
+    const status = response.ok
+    return status
 }
 
 //Профессии
-export function getProfessions() {
-
+export async function getProfessions() {
+    const response = await fetch(`/api/professions/`)
+    const json = await response.json()
+    return json
 }
 
 //Должности
-export function getPosts() {
-
+export async function getPosts(professionId: string) {
+    const response = await fetch(`/api/posts/${professionId}/`)
+    const json = await response.json()
+    return json
 }
 
 //Города
-export function getCities() {
-
+export async function getCities() {
+    const response = await fetch(`/api/cities/`)
+    const json = await response.json()
+    return json
 }
 
 //Опыты работы (не важен. меньше 1 года, 1-3 и т.д)
-export function getWorkExperiences() {
-
+export async function getWorkExperiences() {
+    const response = await fetch(`/api/workExperiences/`)
+    const json = await response.json()
+    return json
 }
 
 //Получить все ключевые навыки
-export function getSkills() {
-
+export async function getSkills() {
+    const response = await fetch(`api/skills/`)
+    const json = await response.json()
+    return json``
 }
 
 //Подтаскиваются резюме
-export function getResumes() {
-
+export async function getResumes() {
+    const response = await fetch(`/api/resumes`)
+    const json = await response.json()
+    return json
 }
 
 //получить отдельное резюме
-export function getResume(resumeId: number) {
-
+export async function getResume(resumeId: number) {
+    const response = await fetch(`/api/resumes/${resumeId}`)
+    const json = await response.json()
+    return json
 }
 
 //Добавить резюме
-export function createResume(resume: {}) {
-
+export async function createResume(userKey: string, resume: IResume) {
+    const response = await fetch(`/api/resumes/${userKey}/`, {
+        method: 'POST',
+        body: JSON.stringify(resume)
+    })
+    return response.ok
 }
 
 //Подтаскиваются вакансии
-export function getVacancies() {
-
+export async function getVacancies() {
+    const response = await fetch(`/api/vacancies/`)
+    const json = await response.json()
+    return json
 }
 
 //Получить отдельную вакансию
-export function getVacancy(vacancyId: number) {
-
+export async function getVacancy(vacancyId: number) {
+    const response = await fetch(`/api/vacancies/${vacancyId}/`)
+    const json = await response.json()
+    return json
 }
 
 //Добавить вакансию
-export function createVacancy(vacancy: {}) {
-
+export async function createVacancy(vacancy: IVacancy) {
+    const response = await fetch(`/api/vacancies/`, {
+        method: 'POST',
+        body: JSON.stringify(vacancy)
+    })
+    return response.ok
 }
 
 //Получить вопросы теста
-export function getTest(vacancyId: number) {
-
+export async function getTest(vacancyId: number) {
+    const response = await fetch(`api/tests/${vacancyId}/`)
+    const json = await response.json()
+    return json
 }
 
 //Добавить тест к вакансии
-export function createTest(test: {}, vacancyId: number) {
-
+export async function createTest(test: ITest, vacancyId: number) {
+    const response = await fetch(`/api/tests/${vacancyId}`, {
+        method: 'POST',
+        body: JSON.stringify(test)
+    })
+    return response.ok
 }
 
 //Лайк резюме
-export function setLikeResume(userId: number, resumeId: number) {
-
-}
-
-//Лайк вакансии
-export function setLikeVacancy(userId: number, vacancyId: number) {
-
+export async function setLike(vacancyId: number, resumeId: number) {
+    const response = await fetch('/api/likes', {
+        method: 'POST',
+        body: JSON.stringify({vacancyId: vacancyId, resumeID: resumeId})
+    })
+    return response.ok
 }
 
 //Получить данные пользователя
-export function getUser(userId: number) {
-
+export async function getUser(userKey: number) {
+    const response = await fetch(`/api/users/${userKey}`)
+    const json = await response.json()
+    return json
 }
 
 //Вход в аккаунт
-export function logIn(login_: string, password: string) {
-
+export async function logIn(login_: string, password: string) {
+    const response = await fetch('/api/login/', {
+        method: 'POST',
+        body: JSON.stringify({login: login_, password: password})
+    })
+    const json = await response.json()
+    return json
 }
 
-//Регистрация
-export function createAccount(data: {}) {
 
+//Регистрация
+export async function createAccount(data: IUser) {
+    const response = await fetch(`/api/registration`, {
+        method: 'POST',
+        body: JSON.stringify(data)
+    })
+    return response.ok
 }
 
 

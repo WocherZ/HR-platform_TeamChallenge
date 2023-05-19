@@ -10,6 +10,7 @@ export interface IQuestion {
 export interface ITest {
     id?: number,
     vacancyId: number,
+    questions?: IQuestion[]
     status: "in progress" | "completed"
 }
 
