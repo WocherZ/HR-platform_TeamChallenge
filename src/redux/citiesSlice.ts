@@ -12,4 +12,5 @@ const citiesSlice = createSlice({
     }
 })
 
-export {}
+export default citiesSlice.reducer
+export const {setCities} = citiesSlice.actions

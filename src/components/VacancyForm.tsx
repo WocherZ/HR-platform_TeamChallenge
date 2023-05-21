@@ -6,19 +6,31 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import TagsInput from "../ui/TagsInput";
 import SelectInput from "../ui/SelectInput";
 import Btn from "../ui/Btn";
-import {IQuestion} from "../types/types";
+import {IQuestion, IVacancy} from "../types/types";
 import FormRadio from "../ui/FormRadio";
+import {useSelector} from "react-redux";
+import {useAppSelector} from "../hooks/reduxHooks";
 
 const VacancyForm = () => {
-    const [company, setCompany] = useState("")
-    const [post, setPost] = useState("")
-    const [salary, setSalary] = useState("")
+
+    const user = useAppSelector(state => state.user)
+    const experiences = useAppSelector(state => state.experiences)
+    const [vacancy, setVacancy] = useState<IVacancy>({
+        ownerId: user.id,
+        companyName: "",
+        profession: "",
+        post: "",
+        city: "",
+        salary: null,
+        workExperience: "",
+        todos: "",
+        requirements: "",
+        desirable: "",
+        offer: "",
+        skills: [],
+    })
+
     const [tag, setTag] = useState("")
-    const [experience, setExperience] = useState("")
-    const [todos, setTodos] = useState("")
-    const [reqs, setReqs] = useState("")
-    const [desirable, setDesirable] = useState("")
-    const [offer, setOffer] = useState("")
     const [questions, setQuestions] = useState<IQuestion[]>([])
     const [display, setDisplay] = useState("none")
 
@@ -28,26 +40,29 @@ const VacancyForm = () => {
         }}>
             <h3>Создание вакансии</h3>
             <div className="form-container">
-                <Input text={"Название компании"} value={company} setValue={setCompany}/>
-                <Input text={"Должность"} value={post} setValue={setPost}/>
-                <Input text={"Зарплата"} value={salary} setValue={setSalary}/>
+                <Input text={"Название компании"} value={vacancy.companyName} setValue={s => {setVacancy({...vacancy, companyName: s})}}/>
+                <Input text={"Должность"} value={vacancy.post} setValue={s => setVacancy({...vacancy, post: s})}/>
+                <Input text={"Зарплата"} value={vacancy.salary?.toString() as string} setValue={s => {setVacancy({...vacancy, salary: parseInt(s)})}}/>
                 <SelectInput default_={"Опыт не важен"}
-                             options={["нет опыта", "меньше года", "1-3 года", "3-6 лет", "больше 6 лет"]}
-                             setValue={setExperience}/>
-                <TextInput value={todos} setValue={setTodos} label={"Обязанности"}/>
-                <TextInput value={reqs} setValue={setReqs} label={"Требования"}/>
-                <TextInput value={desirable} setValue={setDesirable} label={"Будет плюсом"}/>
-                <TextInput value={offer} setValue={setOffer} label={"Мы предлагаем"}/>
+                             options={experiences.values}
+                             setValue={s => {setVacancy({...vacancy, workExperience: s})}}/>
+                <TextInput value={vacancy.todos} setValue={s => {setVacancy({...vacancy, todos: s})}} label={"Обязанности"}/>
+                <TextInput value={vacancy.requirements} setValue={s => {setVacancy({...vacancy, requirements: s})}} label={"Требования"}/>
+                <TextInput value={vacancy.desirable} setValue={s => {setVacancy({...vacancy, desirable: s})}} label={"Будет плюсом"}/>
+                <TextInput value={vacancy.offer} setValue={s => {setVacancy({...vacancy, offer: s})}} label={"Мы предлагаем"}/>
                 <Container>
                     <Row>
                         <Col xs={4} sm={4}>
                             <h3>Ключевые навыки</h3>
                         </Col>
                         <Col xs={8} sm={8}>
-                            <TagsInput display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
+                            <TagsInput tags={vacancy.skills} setTags={s => setVacancy({...vacancy, skills: [...s]})} display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
                         </Col>
                     </Row>
                 </Container>
+
+                {/*остановился тут*/}
+
                 {questions.map((q, i) =>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "top", width: "100%"}}>
                         <div style={{width: "100%"}}>

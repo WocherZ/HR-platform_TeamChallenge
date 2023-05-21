@@ -6,18 +6,28 @@ import Btn from "../ui/Btn";
 import TagsInput from "../ui/TagsInput";
 import TextInput from "../ui/TextInput";
 import FormRadio from "../ui/FormRadio";
+import {IEducation, IResume} from "../types/types";
+import {useSelector} from "react-redux";
+import {createResume} from "../api/Api";
+import {useAppSelector} from "../hooks/reduxHooks";
 
 const ResumeForm = () => {
-    const [profession, setProfession] = useState("")
-    const [post, setPost] = useState("")
-    const [city, setCity] = useState("")
-    const [salary, setSalary] = useState("")
-    const [education, setEducation] = useState("")
-    const edu = ["Среднее", "Среднее специальное", "Неоконечнное высшее",
-        "Высшее", "Бакалавр", "Магистр", "Кандидат наук", "Доктор наук"]
-    const [university, setUniversity] = useState([{name: "", faculty: "", specialization: "", lastYear: ""}])
-    const [company, setCompany] = useState([{name: "", post: "", todos: "", workFrom: "", workTo: ""}])
-    const [info, setInfo] = useState("")
+
+    const user = useAppSelector(state => state.user)
+    const [educations, setEducations] = useState<IEducation[]>([])
+    const [resume, setResume] = useState<IResume>({
+        ownerId: user?.id,
+        profession: "",
+        post: "",
+        city: "",
+        salary: null,
+        education: "",
+        workExperience: "",
+        universities: [],
+        jobs: [],
+        description: "",
+        skills: []
+    })
     const [tag, setTag] = useState("")
     const [display, setDisplay] = useState("none")
 
@@ -26,129 +36,183 @@ const ResumeForm = () => {
             setDisplay("none")
         }}>
             <div className="inputs">
-                <Input text={"Профессия"} value={profession} setValue={setProfession}/>
-                <Input text={"Должность"} value={post} setValue={setPost}/>
-                <Input text={"Город"} value={city} setValue={setCity}/>
-                <Input text={"Желаемая зарплата"} value={salary} setValue={setSalary}/>
+                <Input text={"Профессия"} value={resume.profession} setValue={s => {setResume({...resume, profession: s})}}/>
+                <Input text={"Должность"} value={resume.post} setValue={s => {setResume({...resume, post: s})}}/>
+                <Input text={"Город"} value={resume.city} setValue={s => {setResume({...resume, city: s})}}/>
+                <Input text={"Желаемая зарплата"} value={resume.salary?.toString() as string} setValue={s => {setResume({...resume, salary: parseInt(s)})}}/>
                 <Container fluid>
                     <Row>
                         <Col xs={6} sm={6}>
                             <h3>Образование</h3>
                         </Col>
                         <Col xs={6} sm={6}>
-                            <FormRadio name={"edu_form"} variants={edu} onChange={e => {
-                                setEducation(e.target.value)
-                                setUniversity([{
-                                    name: "",
-                                    faculty: "",
-                                    specialization: "",
-                                    lastYear: ""
-                                }])
-                                setCompany([{name: "", post: "", todos: "", workFrom: "", workTo: ""}])
+                            <FormRadio name={"edu_form"} variants={educations.map(e => e.education)} onChange={e => {
+                                setResume({...resume, education: e.target.value})
+                                setResume({
+                                    ...resume,
+                                    universities: [{
+                                        name: "",
+                                        faculty: "",
+                                        specialization: "",
+                                        graduationYear: null
+                                    }],
+                                    jobs: [{
+                                        companyName: "",
+                                        post: "",
+                                        profession: "",
+                                        todos: "",
+                                        workFrom: "",
+                                        workTo: ""
+                                    }]
+                                })
                             }}/>
                         </Col>
                     </Row>
                 </Container>
-                {education && education !== edu[0] &&<h3>Учебное заведение</h3>}
-                {education && education !== edu[0] && university.map((uni, i) =>
+                {resume.education && resume.education !== educations[0].education && <h3>Учебное заведение</h3>}
+                {resume.education && resume.education !== educations[0].education && resume.universities.map((uni, i) =>
                     <div className="university">
                         <div>
-                        <Input text={"Учебное заведение"} value={uni.name} setValue={(val) => {
-                            let copy_university = [...university]
-                            copy_university[i].name = val
-                            setUniversity(copy_university)
-                        }}/>
-                        <Input text={"Факультет"} value={uni.faculty} setValue={(val) => {
-                            let copy_university = [...university]
-                            copy_university[i].faculty = val
-                            setUniversity(copy_university)
-                        }}/>
+                            <Input text={"Учебное заведение"} value={uni.name} setValue={(val) => {
+                                const copy_universities = [...resume.universities]
+                                copy_universities[i].name = val
+                                setResume({
+                                    ...resume,
+                                    universities: copy_universities
+                                })
+                            }}/>
+                            <Input text={"Факультет"} value={uni.faculty} setValue={(val) => {
+                                const copy_universities = [...resume.universities]
+                                copy_universities[i].faculty = val
+                                setResume({
+                                    ...resume,
+                                    universities: copy_universities
+                                })
+                            }}/>
 
-                        <Input text={"Специализация"} value={uni.specialization} setValue={(val) => {
-                            let copy_university = [...university]
-                            copy_university[i].specialization = val
-                            setUniversity(copy_university)
-                        }}/>
+                            <Input text={"Специализация"} value={uni.specialization} setValue={(val) => {
+                                let copy_universities = [...resume.universities]
+                                copy_universities[i].specialization = val
+                                setResume({
+                                    ...resume,
+                                    universities: copy_universities
+                                })
+                            }}/>
 
-                        <Input text={"Год окончания"} value={uni.lastYear} setValue={(val) => {
-                            let copy_university = [...university]
-                            copy_university[i].lastYear = val
-                            setUniversity(copy_university)
-                        }}/>
+                            <Input text={"Год окончания"} value={uni.graduationYear?.toString() as string} setValue={(val) => {
+                                let copy_universities = [...resume.universities]
+                                copy_universities[i].graduationYear = parseInt(val)
+                                setResume({
+                                    ...resume,
+                                    universities: copy_universities
+                                })
+                            }}/>
                         </div>
                         <div>
                             <Btn text={"Удалить"} onClick={() => {
-                                setUniversity(university.filter(u => u != uni))
+                                setResume({
+                                    ...resume,
+                                    universities: resume.universities.filter(u => u != uni)
+                                })
                             }}/>
                         </div>
                     </div>
                 )}
-                {education && education !== edu[0] &&
+                {resume.education && resume.education !== educations[0].education &&
                     <Btn text={"Добавить учебное заведение"} onClick={() => {
-                        const copy_university = [...university]
-                        copy_university.push({name: "", faculty: "", specialization: "", lastYear: ""})
-                        setUniversity(copy_university);
+                        const copy_universities = [...resume.universities]
+                        copy_universities.push({name: "", faculty: "", specialization: "", graduationYear: null})
+                        setResume({
+                            ...resume,
+                            universities: copy_universities,
+                        })
                     }}/>}
 
-                {education && <h3>Опыт работы</h3>}
-                {education && company.map( (com,i) =>
+                {resume.education && <h3>Опыт работы</h3>}
+                {resume.education && resume.jobs.map((j, i) =>
                     <div className="company">
                         <div>
-                        <Input text={"Название компании"} value={com.name} setValue={(val) => {
-                            let copy_company = [...company]
-                            copy_company[i].name = val
-                            setCompany(copy_company)
-                        }}/>
-                        <Input text={"Должность"} value={com.post} setValue={(val) => {
-                            let copy_company = [...company]
-                            copy_company[i].post = val
-                            setCompany(copy_company)
-                        }}/>
+                            <Input text={"Название компании"} value={j.companyName} setValue={(val) => {
+                                let copy_jobs = [...resume.jobs]
+                                copy_jobs[i].companyName = val
+                                setResume({
+                                    ...resume,
+                                    jobs: copy_jobs
+                                })
+                            }}/>
+                            <Input text={"Должность"} value={j.post} setValue={(val) => {
+                                let copy_jobs = [...resume.jobs]
+                                copy_jobs[i].post = val
+                                setResume({
+                                    ...resume,
+                                    jobs: copy_jobs
+                                })
+                            }}/>
 
-                        <Input text={"Обязанности"} value={com.todos} setValue={(val) => {
-                            let copy_company = [...company]
-                            copy_company[i].todos = val
-                            setCompany(copy_company)
-                        }}/>
+                            <Input text={"Обязанности"} value={j.todos} setValue={(val) => {
+                                let copy_jobs = [...resume.jobs]
+                                copy_jobs[i].todos = val
+                                setResume({
+                                    ...resume,
+                                    jobs: copy_jobs
+                                })
+                            }}/>
 
-                        <Input text={"Начало работы"} value={com.workFrom} setValue={(val) => {
-                            let copy_company = [...company]
-                            copy_company[i].workFrom = val
-                            setCompany(copy_company)
-                        }}/>
-                        <Input text={"Окончание работы"} value={com.workTo} setValue={(val) => {
-                            let copy_company = [...company]
-                            copy_company[i].workTo = val
-                            setCompany(copy_company)
-                        }}/>
+                            <Input text={"Начало работы"} value={j.workFrom} setValue={(val) => {
+                                let copy_jobs = [...resume.jobs]
+                                copy_jobs[i].workFrom = val
+                                setResume({
+                                    ...resume,
+                                    jobs: copy_jobs
+                                })
+                            }}/>
+                            <Input text={"Окончание работы"} value={j.workTo} setValue={(val) => {
+                                let copy_jobs = [...resume.jobs]
+                                copy_jobs[i].workTo = val
+                                setResume({
+                                    ...resume,
+                                    jobs: copy_jobs
+                                })
+                            }}/>
                         </div>
                         <div>
                             <Btn text={"Удалить"} onClick={() => {
-                                setCompany(company.filter(c => c != com))
+                                setResume({
+                                    ...resume,
+                                    jobs: resume.jobs.filter(v => v.id != j.id)
+                                })
                             }}/>
                         </div>
                     </div>
                 )}
-                {education &&
+                {resume.education &&
                     <Btn text={"Добавить опыт работы"} onClick={() => {
-                        const copy_company = [...company]
-                        copy_company.push({name: "", post: "", todos: "", workFrom: "", workTo: ""})
-                        setCompany(copy_company);
+                        const copy_jobs = [...resume.jobs]
+                        copy_jobs.push({companyName: "", profession: "", post: "", todos: "", workFrom: "", workTo: ""})
+                        setResume({
+                            ...resume,
+                            jobs: copy_jobs
+                        })
                     }}/>}
-                {education && <TextInput value={info} setValue={setInfo} label={"О себе"}/>}
-                {education &&
+                {resume.education && <TextInput value={resume.description} setValue={s => {setResume({...resume, description: s})}} label={"О себе"}/>}
+                {resume.education &&
                     <Container>
                         <Row>
                             <Col xs={4} sm={4}>
                                 <h3>Ключевые навыки</h3>
                             </Col>
                             <Col xs={8} sm={8}>
-                                <TagsInput display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
+                                <TagsInput tags={resume.skills} setTags={vals => {
+                                    setResume({...resume, skills: [...vals]})
+                                }} display={display} setDisplay={setDisplay} text={"Навыки"} value={tag}
+                                           setValue={setTag}/>
                             </Col>
                         </Row>
                     </Container>
                 }
-                <Btn className="publish" text={"Опубликовать резюме"} onClick={() => {}}/>
+                <Btn className="publish" text={"Опубликовать резюме"} onClick={() => {
+                    createResume(user.key, resume).then()
+                }}/>
             </div>
         </div>
     );

@@ -16,8 +16,9 @@ export interface ITest {
 
 export interface IContact {
     id?: number;
-    userId1: number;
-    userId2: number;
+    idVacancy: number;
+    idResume: number;
+    messages: IMessage[]
 }
 
 export interface IMessage {
@@ -66,7 +67,7 @@ export interface IUniversity {
     name: string,
     faculty: string,
     specialization: string,
-    graduationYear: number,
+    graduationYear: number | null,
 }
 
 export interface IProfession {
@@ -77,6 +78,11 @@ export interface IProfession {
 export interface IPost {
     id?: number,
     post: string,
+}
+
+export interface IEducation {
+    id?: number,
+    education: string,
 }
 
 export interface IWorkExperience {
@@ -106,11 +112,11 @@ export interface IJob {
 
 export interface IResume {
     id?: number,
-    ownerId: number,
+    ownerId: number | null,
     profession: string,
     post: string,
     city: string,
-    salary: number,
+    salary: number | null,
     education: string,
     workExperience: string,
     universities: IUniversity[],
@@ -121,12 +127,12 @@ export interface IResume {
 
 export interface IVacancy {
     id?: number,
-    ownerId: number,
+    ownerId: number | null,
     companyName: string,
     profession: string,
     post: string,
     city: string,
-    salary: number,
+    salary: number | null,
     workExperience: string,
     todos: string,
     requirements: string,

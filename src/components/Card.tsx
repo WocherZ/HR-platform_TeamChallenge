@@ -28,19 +28,19 @@ const Card: FC<ICard> = ({left, bottom, setBottom, rotation, setIsDown, setStart
         >
             <div className="info-container">
                 <div className="top-part">
-                    <h3>{"companyName" in data && data.companyName}</h3>
-                    <h3>{data.profession}: {data.post}</h3>
-                    <p>{data.city}</p>
-                    <p>{data.salary}</p>
-                    <p>Опыт работы: {data.workExperience}</p>
-                    {"todos" in data && <p>Обязанности: {data.todos}</p>}
-                    <p>{"education" in data && data.education}</p>
-                    <p>{"description" in data && data.description}</p>
+                    <h3>{data && "companyName" in data && data?.companyName}</h3>
+                    <h3>{data?.profession}: {data?.post}</h3>
+                    <p>{data?.city}</p>
+                    <p>{data?.salary}</p>
+                    <p>Опыт работы: {data?.workExperience}</p>
+                    {data && "todos" in data && <p>Обязанности: {data?.todos}</p>}
+                    <p>{data && "education" in data && data?.education}</p>
+                    <p>{data && "description" in data && data?.description}</p>
                 </div>
             </div>
             <div className="scroll-container">
                 <TagsContainer
-                    tags={data.skills}/>
+                    tags={data?.skills}/>
             </div>
         </div>
     );

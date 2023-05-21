@@ -11,7 +11,7 @@ interface ITags {
 const TagsContainer: FC<ITags> = ({tags, onDelete=undefined}) => {
     return (
         <div className="tags">
-            {tags.map((t,i) =>
+            {tags && tags.map((t,i) =>
                 <div className="tag">
                     <>
                         {t}

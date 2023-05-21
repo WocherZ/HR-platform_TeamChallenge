@@ -17,12 +17,12 @@ const Profile = () => {
     const [data, setData] = useState<IResume[] | IVacancy[]>([])
 
     useEffect(() => {
-        user.role == "user"
-            ? getResumes(user.key).then(
+        user?.role == "user"
+            ? getResumes(user?.key).then(
                 vals => {
                     setData(vals)
                 })
-            : getVacancies(user.key).then(
+            : getVacancies(user?.key).then(
                 vals => {
                     setData(vals)
                 }
@@ -41,19 +41,19 @@ const Profile = () => {
                         <div>
                             <div className="line">
                                 <div><p>ФИО:</p></div>
-                                <div><p>{user.lastName} {user.firstName} {user.secondName}</p></div>
+                                <div><p>{user?.lastName} {user?.firstName} {user?.secondName}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Телефон:</p></div>
-                                <div><p>{user.phone}</p></div>
+                                <div><p>{user?.phone}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Почта:</p></div>
-                                <div><p>{user.mail}</p></div>
+                                <div><p>{user?.mail}</p></div>
                             </div>
                             <div className="line">
                                 <div><p>Дата рождения:</p></div>
-                                <div><p>{user.birthDay}</p></div>
+                                <div><p>{user?.birthDay}</p></div>
                             </div>
                             <div className="line">
                                 <Btn text={"Добавить резюме"} onClick={() => {
@@ -69,7 +69,7 @@ const Profile = () => {
                     </Col>
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
                         <DropDowns titles={data.map(d => d.profession + " - " + d.post)}
-                                   bodies={user.role == "user"
+                                   bodies={user?.role == "user"
                                        ? data.map(d => <Resume data={d as IResume}/>)
                                        : data.map(d => <Vacancy data={d as IVacancy}/>)
                         }/>

@@ -8,8 +8,8 @@ export async function isUser(key: string) {
 }
 
 //Список контактов (они же мэтчи)
-export async function getContacts() {
-    const response = await fetch("/api/contacts/")
+export async function getContacts(userId: number) {
+    const response = await fetch(`/api/contacts/${userId}`)
     const json = await response.json()
     return json
 }
@@ -17,13 +17,6 @@ export async function getContacts() {
 //Отдельный мэтч
 export async function getContact(id: number) {
     const response = await fetch(`/api/contact/${id}/`)
-    const json = await response.json()
-    return json
-}
-
-//сообщения чата
-export async function getChat(contactId: number, userKey: string) {
-    const response = await fetch(`/api/chats/${userKey}/${contactId}/`)
     const json = await response.json()
     return json
 }
@@ -62,6 +55,12 @@ export async function getCities() {
 //Опыты работы (не важен. меньше 1 года, 1-3 и т.д)
 export async function getWorkExperiences() {
     const response = await fetch(`/api/workExperiences/`)
+    const json = await response.json()
+    return json
+}
+
+export async function getEducations() {
+    const response = await fetch(`/api/educations/`)
     const json = await response.json()
     return json
 }
@@ -145,11 +144,18 @@ export async function setLike(vacancyId: number, resumeId: number, status: "like
 }
 
 //Получить данные пользователя
-export async function getUser(userKey: number) {
+export async function getUser(userKey: string) {
     const response = await fetch(`/api/users/${userKey}/`)
     const json = await response.json()
     return json
 }
+
+export async function getUserById(userId: number) {
+    const response = await fetch(`/api/users/${userId}/`)
+    const json = await response.json()
+    return json
+}
+
 
 //Вход в аккаунт
 export async function logIn(login_: string, password: string) {

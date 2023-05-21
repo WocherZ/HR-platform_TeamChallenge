@@ -10,10 +10,11 @@ interface ITagsInput {
     setValue: (s: string) => void,
     display: string,
     setDisplay: (s: string) => void,
+    tags: string[],
+    setTags: (s: string[]) => void,
 }
 
-const TagsInput: FC<ITagsInput> = ({text, value, setValue, display, setDisplay}) => {
-    const [tags, setTags] = useState<string []>([])
+const TagsInput: FC<ITagsInput> = ({text, value, setValue, display, setDisplay, tags, setTags}) => {
     const [choice, setChoice] = useState(["CSS", "JS", "HTML", "Java", "Spring", "CSS", "JS", "HTML", "Java", "Spring"])
     return (
         <div className="choice-input">

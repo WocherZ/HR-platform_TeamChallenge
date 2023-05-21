@@ -57,7 +57,7 @@ const Search = () => {
                 setExperiences(experiences)
             }
         )
-        user.role == "user"
+        user?.role == "user"
             ? getVacancies().then(
                 vals => {
                     setCards(vals)
@@ -156,7 +156,7 @@ const Search = () => {
                              //@ts-ignore
                              dislike.current.style.opacity = 0
                              if (decision !== "") {
-                                 setLike(selfFormId, cards[0].id as number, decision).then()
+                                 setLike(selfFormId, cards[0]?.id as number, decision).then()
                              }
                              setDecision("")
                          }}
@@ -204,7 +204,7 @@ const Search = () => {
                              //@ts-ignore
                              dislike.current.style.opacity = 0
                              if (decision !== "") {
-                                 setLike(selfFormId, cards[0].id as number, decision).then()
+                                 setLike(selfFormId, cards[0]?.id as number, decision).then()
                              }
 
                              setDecision("")
@@ -213,7 +213,7 @@ const Search = () => {
                         <Container fluid>
                             <Row>
                                 <div className="card-more-info" ref={moreInfo}>
-                                    {user.role == "user"
+                                    {user?.role == "user"
                                     ?<Vacancy data={cards[0] as IVacancy}/>
                                     :<Resume data={cards[0] as IResume}/>
                                     }

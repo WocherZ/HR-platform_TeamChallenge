@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const experiencesSlice = createSlice({
     name: "experiences",
     initialState: {
-        values: []
+        values: [] as string[]
     },
     reducers: {
         setExperiences(state, action) {

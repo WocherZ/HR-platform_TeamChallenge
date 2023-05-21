@@ -1,10 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {IUser} from "../types/types";
 
 
 const userSlice = createSlice({
     name: "user",
     initialState: {
         key: "",
+        id: null,
         role: "",
         firstName: "",
         lastName: "",
