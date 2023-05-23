@@ -1,8 +1,9 @@
-import React, {FC, ReactNode, useRef, useState} from 'react';
+import React, {FC, ReactNode, useEffect, useRef, useState} from 'react';
 import "./css/TagsInput.css"
 import {Form, InputGroup} from "react-bootstrap";
 import Btn from "./Btn";
 import TagsContainer from "./TagsContainer";
+import {getSimilarSkills} from "../api/Api";
 
 interface ITagsInput {
     text: string,
@@ -15,7 +16,15 @@ interface ITagsInput {
 }
 
 const TagsInput: FC<ITagsInput> = ({text, value, setValue, display, setDisplay, tags, setTags}) => {
-    const [choice, setChoice] = useState(["CSS", "JS", "HTML", "Java", "Spring", "CSS", "JS", "HTML", "Java", "Spring"])
+    const [choice, setChoice] = useState<string[]>([])
+
+    useEffect(() => {
+        getSimilarSkills(value).then(
+            val => {
+                setChoice(val)
+            })
+    }, [value])
+
     return (
         <div className="choice-input">
             <TagsContainer tags={tags} onDelete={(val) => setTags(tags.filter((t, i) => i !== val))}/>

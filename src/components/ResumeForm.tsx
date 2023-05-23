@@ -14,14 +14,14 @@ import {useAppSelector} from "../hooks/reduxHooks";
 const ResumeForm = () => {
 
     const user = useAppSelector(state => state.user)
-    const [educations, setEducations] = useState<IEducation[]>([])
+    const educations = ['Среднее', 'Среднее специальное', 'Неоконченное высшее', 'Высшее', 'Бакалавр', 'Магистр', 'Кандидат наук', 'Доктор наук']
     const [resume, setResume] = useState<IResume>({
         ownerId: user?.id,
         profession: "",
         post: "",
         city: "",
         salary: null,
-        education: "",
+        education: null,
         workExperience: "",
         universities: [],
         jobs: [],
@@ -36,18 +36,25 @@ const ResumeForm = () => {
             setDisplay("none")
         }}>
             <div className="inputs">
-                <Input text={"Профессия"} value={resume.profession} setValue={s => {setResume({...resume, profession: s})}}/>
-                <Input text={"Должность"} value={resume.post} setValue={s => {setResume({...resume, post: s})}}/>
-                <Input text={"Город"} value={resume.city} setValue={s => {setResume({...resume, city: s})}}/>
-                <Input text={"Желаемая зарплата"} value={resume.salary?.toString() as string} setValue={s => {setResume({...resume, salary: parseInt(s)})}}/>
+                <Input text={"Профессия"} value={resume.profession} setValue={s => {
+                    setResume({...resume, profession: s})
+                }}/>
+                <Input text={"Должность"} value={resume.post} setValue={s => {
+                    setResume({...resume, post: s})
+                }}/>
+                <Input text={"Город"} value={resume.city} setValue={s => {
+                    setResume({...resume, city: s})
+                }}/>
+                <Input text={"Желаемая зарплата"} value={resume.salary?.toString() as string} setValue={s => {
+                    setResume({...resume, salary: parseInt(s)})
+                }}/>
                 <Container fluid>
                     <Row>
                         <Col xs={6} sm={6}>
                             <h3>Образование</h3>
                         </Col>
                         <Col xs={6} sm={6}>
-                            <FormRadio name={"edu_form"} variants={educations.map(e => e.education)} onChange={e => {
-                                setResume({...resume, education: e.target.value})
+                            <FormRadio name={"edu_form"} variants={educations} onChange={e => {
                                 setResume({
                                     ...resume,
                                     universities: [{
@@ -63,14 +70,15 @@ const ResumeForm = () => {
                                         todos: "",
                                         workFrom: "",
                                         workTo: ""
-                                    }]
+                                    }],
+                                    education: e.target.value
                                 })
                             }}/>
                         </Col>
                     </Row>
                 </Container>
-                {resume.education && resume.education !== educations[0].education && <h3>Учебное заведение</h3>}
-                {resume.education && resume.education !== educations[0].education && resume.universities.map((uni, i) =>
+                {resume.education && resume.education !== educations[0] && <h3>Учебное заведение</h3>}
+                {resume.education && resume.education !== educations[0] && resume.universities.map((uni, i) =>
                     <div className="university">
                         <div>
                             <Input text={"Учебное заведение"} value={uni.name} setValue={(val) => {
@@ -99,14 +107,15 @@ const ResumeForm = () => {
                                 })
                             }}/>
 
-                            <Input text={"Год окончания"} value={uni.graduationYear?.toString() as string} setValue={(val) => {
-                                let copy_universities = [...resume.universities]
-                                copy_universities[i].graduationYear = parseInt(val)
-                                setResume({
-                                    ...resume,
-                                    universities: copy_universities
-                                })
-                            }}/>
+                            <Input text={"Год окончания"} value={uni.graduationYear?.toString() as string}
+                                   setValue={(val) => {
+                                       let copy_universities = [...resume.universities]
+                                       copy_universities[i].graduationYear = parseInt(val)
+                                       setResume({
+                                           ...resume,
+                                           universities: copy_universities
+                                       })
+                                   }}/>
                         </div>
                         <div>
                             <Btn text={"Удалить"} onClick={() => {
@@ -118,7 +127,7 @@ const ResumeForm = () => {
                         </div>
                     </div>
                 )}
-                {resume.education && resume.education !== educations[0].education &&
+                {resume.education && resume.education !== educations[0] &&
                     <Btn text={"Добавить учебное заведение"} onClick={() => {
                         const copy_universities = [...resume.universities]
                         copy_universities.push({name: "", faculty: "", specialization: "", graduationYear: null})
@@ -179,7 +188,7 @@ const ResumeForm = () => {
                             <Btn text={"Удалить"} onClick={() => {
                                 setResume({
                                     ...resume,
-                                    jobs: resume.jobs.filter(v => v.id != j.id)
+                                    jobs: resume.jobs.filter(v => v != j)
                                 })
                             }}/>
                         </div>
@@ -194,7 +203,9 @@ const ResumeForm = () => {
                             jobs: copy_jobs
                         })
                     }}/>}
-                {resume.education && <TextInput value={resume.description} setValue={s => {setResume({...resume, description: s})}} label={"О себе"}/>}
+                {resume.education && <TextInput value={resume.description} setValue={s => {
+                    setResume({...resume, description: s})
+                }} label={"О себе"}/>}
                 {resume.education &&
                     <Container>
                         <Row>
@@ -202,16 +213,22 @@ const ResumeForm = () => {
                                 <h3>Ключевые навыки</h3>
                             </Col>
                             <Col xs={8} sm={8}>
-                                <TagsInput tags={resume.skills} setTags={vals => {
-                                    setResume({...resume, skills: [...vals]})
-                                }} display={display} setDisplay={setDisplay} text={"Навыки"} value={tag}
-                                           setValue={setTag}/>
+                                <TagsInput
+                                    tags={resume.skills}
+                                    setTags={vals => {
+                                        setResume({...resume, skills: [...vals]})
+                                    }}
+                                    display={display}
+                                    setDisplay={setDisplay}
+                                    text={"Навыки"}
+                                    value={tag}
+                                    setValue={setTag}/>
                             </Col>
                         </Row>
                     </Container>
                 }
                 <Btn className="publish" text={"Опубликовать резюме"} onClick={() => {
-                    createResume(user.key, resume).then()
+                    createResume(resume).then()
                 }}/>
             </div>
         </div>

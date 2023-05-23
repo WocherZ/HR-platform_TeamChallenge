@@ -32,7 +32,7 @@ const Card: FC<ICard> = ({left, bottom, setBottom, rotation, setIsDown, setStart
                     <h3>{data?.profession}: {data?.post}</h3>
                     <p>{data?.city}</p>
                     <p>{data?.salary}</p>
-                    <p>Опыт работы: {data?.workExperience}</p>
+                    <p>{data && "todos" in data ? 'Требуемый о' : 'О'}пыт работы: {data?.workExperience}</p>
                     {data && "todos" in data && <p>Обязанности: {data?.todos}</p>}
                     <p>{data && "education" in data && data?.education}</p>
                     <p>{data && "description" in data && data?.description}</p>

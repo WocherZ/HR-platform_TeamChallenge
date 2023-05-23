@@ -20,6 +20,7 @@ import {setExperiences} from "../redux/experiencesSlice";
 import {ICity, IPost, IProfession, IResume, IVacancy, IWorkExperience} from "../types/types";
 import {useSelector} from "react-redux";
 import Vacancy from "./Vacancy";
+import {useAppSelector} from "../hooks/reduxHooks";
 
 const Search = () => {
     const [professions, setProfessions] = useState([] as IProfession[])
@@ -27,8 +28,8 @@ const Search = () => {
     const [cities, setCities] = useState([] as ICity[])
     const [workExperiences, setWorkExperiences] = useState([] as IWorkExperience[])
     const [cards, setCards] = useState<IResume[] | IVacancy[]>([])
-    // @ts-ignore
-    const user = useSelector(state => state.user)
+
+    const user = useAppSelector(state => state.user)
 
     const [profession, setProfession] = useState("")
     const [post, setPost] = useState("")
@@ -46,30 +47,29 @@ const Search = () => {
     const moreInfo = useRef(null)
     const moreInfoPanel = useRef(null)
     const [decision, setDecision] = useState<"" | "like" | "dislike">("")
+    const [reloadNumber, setReloadNumber] = useState(0)
 
     const [selfFormId, setSelfFormId] = useState(0)
 
     useEffect(() => {
         Promise.all([getProfessions(), getCities(), getWorkExperiences()]).then(
-            ([professions, cities, experiences]: [IProfession[], ICity[], IWorkExperience[]])=> {
+            ([professions, cities, experiences]: [IProfession[], ICity[], IWorkExperience[]]) => {
                 setProfessions(professions)
                 setCities(cities)
                 setExperiences(experiences)
             }
         )
-        user?.role == "user"
-            ? getVacancies().then(
-                vals => {
-                    setCards(vals)
-                }
-            )
-            : getResumes().then(
-                vals => {
-                    setCards(vals)
-                }
-            )
-
     }, [])
+
+    useEffect(() => {
+        user?.role == "user"
+            ? getVacancies().then(vals => {
+                    setCards(vals)
+                })
+            : getResumes().then(vals => {
+                    setCards(vals)
+                })
+    }, [reloadNumber])
 
     useEffect(() => {
         getPosts(profession).then(
@@ -141,7 +141,13 @@ const Search = () => {
                                      dislike.current.style.opacity = 0.5
                                      setDecision("dislike")
                                  } else {
+                                     setRotation("0deg")
+                                     setLeft(0)
                                      setDecision("")
+                                     //@ts-ignore
+                                     like.current.style.opacity = 0
+                                     //@ts-ignore
+                                     dislike.current.style.opacity = 0
                                  }
                              }
                          }}
@@ -157,6 +163,10 @@ const Search = () => {
                              dislike.current.style.opacity = 0
                              if (decision !== "") {
                                  setLike(selfFormId, cards[0]?.id as number, decision).then()
+                                 cards.shift()
+                                 if (cards.length == 0) {
+                                     setReloadNumber(reloadNumber + 1)
+                                 }
                              }
                              setDecision("")
                          }}
@@ -191,6 +201,8 @@ const Search = () => {
                                  dislike.current.style.opacity = 0.5
                                  setDecision("dislike")
                              } else {
+                                 setRotation("0")
+                                 setLeft(0)
                                  setDecision("")
                              }
                              setDecision("")
@@ -205,6 +217,10 @@ const Search = () => {
                              dislike.current.style.opacity = 0
                              if (decision !== "") {
                                  setLike(selfFormId, cards[0]?.id as number, decision).then()
+                                 cards.shift()
+                                 if (cards.length ==0) {
+                                     setReloadNumber(reloadNumber + 1)
+                                 }
                              }
 
                              setDecision("")
@@ -214,8 +230,8 @@ const Search = () => {
                             <Row>
                                 <div className="card-more-info" ref={moreInfo}>
                                     {user?.role == "user"
-                                    ?<Vacancy data={cards[0] as IVacancy}/>
-                                    :<Resume data={cards[0] as IResume}/>
+                                        ? <Vacancy data={cards[0] as IVacancy}/>
+                                        : <Resume data={cards[0] as IResume}/>
                                     }
                                 </div>
                                 <div className="more-info-panel" ref={moreInfoPanel}>

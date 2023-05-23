@@ -10,6 +10,7 @@ import {IQuestion, IVacancy} from "../types/types";
 import FormRadio from "../ui/FormRadio";
 import {useSelector} from "react-redux";
 import {useAppSelector} from "../hooks/reduxHooks";
+import {createTest, createVacancy} from "../api/Api";
 
 const VacancyForm = () => {
 
@@ -74,7 +75,7 @@ const VacancyForm = () => {
                             <FormRadio name={"variants"}
                                        variants={
                                            q.variants.map((v, j) =>
-                                               <div style={{display: "flex", flexDirection: "row"}}>
+                                               <div key={j} style={{display: "flex", flexDirection: "row"}}>
                                                    <Input text={"Вариант ответа"} value={v} setValue={val => {
                                                        let copy_questions = [...questions]
                                                        copy_questions[i].variants[j] = val
@@ -113,6 +114,8 @@ const VacancyForm = () => {
                     setQuestions([...questions, {question: "", variants: [], answer: ""}])
                 }}/>
                 <Btn className="publish" text={"Опубликовать вакансию"} onClick={() => {
+                    createVacancy(vacancy).then()
+                    createTest({questions: questions}).then()
                 }}/>
             </div>
         </div>

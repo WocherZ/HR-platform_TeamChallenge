@@ -9,9 +9,8 @@ export interface IQuestion {
 
 export interface ITest {
     id?: number,
-    vacancyId: number,
-    questions?: IQuestion[]
-    status: "in progress" | "completed" | ""
+    vacancyId?: number,
+    questions: IQuestion[]
 }
 
 export interface IContact {
@@ -117,7 +116,7 @@ export interface IResume {
     post: string,
     city: string,
     salary: number | null,
-    education: string,
+    education: string | null,
     workExperience: string,
     universities: IUniversity[],
     jobs: IJob[],

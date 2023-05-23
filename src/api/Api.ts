@@ -69,7 +69,14 @@ export async function getEducations() {
 export async function getSkills() {
     const response = await fetch(`api/skills/`)
     const json = await response.json()
-    return json``
+    return json
+}
+
+//Получить ключевы навыки по шаблону
+export async function getSimilarSkills(str: string) {
+    const response = await fetch(`api/skills/${str}/`)
+    const json = await response.json()
+    return json
 }
 
 //Подтаскиваются резюме
@@ -87,8 +94,8 @@ export async function getResume(resumeId: number) {
 }
 
 //Добавить резюме
-export async function createResume(userKey: string, resume: IResume) {
-    const response = await fetch(`/api/resumes/${userKey}/`, {
+export async function createResume(resume: IResume) {
+    const response = await fetch(`/api/resumes/`, {
         method: 'POST',
         body: JSON.stringify(resume)
     })
@@ -126,8 +133,8 @@ export async function getTest(vacancyId: number) {
 }
 
 //Добавить тест к вакансии
-export async function createTest(test: ITest, vacancyId: number) {
-    const response = await fetch(`/api/tests/${vacancyId}/`, {
+export async function createTest(test: ITest) {
+    const response = await fetch(`/api/tests/`, {
         method: 'POST',
         body: JSON.stringify(test)
     })

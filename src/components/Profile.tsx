@@ -9,11 +9,11 @@ import {useSelector} from "react-redux";
 import {IResume, IUser, IVacancy} from "../types/types";
 import {getResumes, getVacancies} from "../api/Api";
 import Vacancy from "./Vacancy";
+import {useAppSelector} from "../hooks/reduxHooks";
 
 const Profile = () => {
     const navigate = useNavigate()
-    // @ts-ignore
-    const user: IUser = useSelector(state => state.user)
+    const user = useAppSelector(state => state.user)
     const [data, setData] = useState<IResume[] | IVacancy[]>([])
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const Profile = () => {
                 </Row>
                 <Row className="resumes">
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
-                        <h1>Мои резюме/вакансии</h1>
+                        <h1>Мои {user.role == 'user' ? 'резюме' : 'вакансии'}</h1>
                     </Col>
                     <Col className="col" xs={12} sm={12} style={{display: "flex", justifyContent: "center"}}>
                         <DropDowns titles={data.map(d => d.profession + " - " + d.post)}

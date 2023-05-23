@@ -7,7 +7,7 @@ const userSlice = createSlice({
     initialState: {
         key: "",
         id: null,
-        role: "",
+        role: "user",
         firstName: "",
         lastName: "",
         secondName: "",
