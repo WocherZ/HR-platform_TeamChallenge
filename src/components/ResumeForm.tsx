@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./css/ResumeForm.css"
 import Input from "../ui/Input";
-import {Col, Container, Form, Row} from "react-bootstrap";
+import {Col, Container, Form, Image, Row} from "react-bootstrap";
 import Btn from "../ui/Btn";
 import TagsInput from "../ui/TagsInput";
 import TextInput from "../ui/TextInput";
@@ -118,12 +118,22 @@ const ResumeForm = () => {
                                    }}/>
                         </div>
                         <div>
-                            <Btn text={"Удалить"} onClick={() => {
-                                setResume({
-                                    ...resume,
-                                    universities: resume.universities.filter(u => u != uni)
-                                })
-                            }}/>
+                            <Image className="delete-img" src={require("../images/delete.png")}
+                                   onClick={() => {
+                                       setResume({
+                                           ...resume,
+                                           universities: resume.universities.filter(u => u != uni)
+                                       })
+                                   }}
+                                   onMouseOver={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete_red.png")
+                                   }}
+                                   onMouseOut={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete.png")
+                                   }}
+                            />
                         </div>
                     </div>
                 )}
@@ -185,12 +195,22 @@ const ResumeForm = () => {
                             }}/>
                         </div>
                         <div>
-                            <Btn text={"Удалить"} onClick={() => {
-                                setResume({
-                                    ...resume,
-                                    jobs: resume.jobs.filter(v => v != j)
-                                })
-                            }}/>
+                            <Image className="delete-img" src={require("../images/delete.png")}
+                                   onClick={() => {
+                                       setResume({
+                                           ...resume,
+                                           jobs: resume.jobs.filter(v => v != j)
+                                       })
+                                   }}
+                                   onMouseOver={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete_red.png")
+                                   }}
+                                   onMouseOut={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete.png")
+                                   }}
+                            />
                         </div>
                     </div>
                 )}

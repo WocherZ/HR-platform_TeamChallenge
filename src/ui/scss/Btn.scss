@@ -3,27 +3,19 @@
   margin: 5px;
   background-color: black;
   border: none;
-  color: lightblue;
+  color: #C1C8E4;
 
   &:hover {
-    background-color: mediumpurple;
+    background-color: #5680E9;
   }
 
   &:focus {
     background-color: black;
-    color: lightblue;
-  }
-
-  &:active {
-    background-color: mediumpurple!important;
-  }
-
-  &:disabled {
-    background-color: mediumpurple;
+    color: #C1C8E4;
   }
 }
 
 .btn-active {
-  background-color: mediumpurple!important;
+  background-color: black!important;
   color: white;
 }

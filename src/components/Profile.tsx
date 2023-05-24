@@ -35,7 +35,7 @@ const Profile = () => {
             <Container fluid>
                 <Row style={{display: "flex", justifyContent: "center"}}>
                     <Col xs={5} sm={4} lg={2}>
-                        <Image className="ava" src={require("./images/ava.jpg")}/>
+                        <Image className="ava" src={require("../images/ava.jpg")}/>
                     </Col>
                     <Col xs={7} sm={8} lg={4} xl={3} style={{display: "flex", justifyContent: "center"}}>
                         <div>

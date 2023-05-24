@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Input from "../ui/Input";
 import "./css/VacancyForm.css"
 import TextInput from "../ui/TextInput";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import TagsInput from "../ui/TagsInput";
 import SelectInput from "../ui/SelectInput";
 import Btn from "../ui/Btn";
@@ -41,28 +41,42 @@ const VacancyForm = () => {
         }}>
             <h3>Создание вакансии</h3>
             <div className="form-container">
-                <Input text={"Название компании"} value={vacancy.companyName} setValue={s => {setVacancy({...vacancy, companyName: s})}}/>
+                <Input text={"Название компании"} value={vacancy.companyName} setValue={s => {
+                    setVacancy({...vacancy, companyName: s})
+                }}/>
                 <Input text={"Должность"} value={vacancy.post} setValue={s => setVacancy({...vacancy, post: s})}/>
-                <Input text={"Зарплата"} value={vacancy.salary?.toString() as string} setValue={s => {setVacancy({...vacancy, salary: parseInt(s)})}}/>
+                <Input text={"Зарплата"} value={vacancy.salary?.toString() as string} setValue={s => {
+                    setVacancy({...vacancy, salary: parseInt(s)})
+                }}/>
                 <SelectInput default_={"Опыт не важен"}
                              options={experiences.values}
-                             setValue={s => {setVacancy({...vacancy, workExperience: s})}}/>
-                <TextInput value={vacancy.todos} setValue={s => {setVacancy({...vacancy, todos: s})}} label={"Обязанности"}/>
-                <TextInput value={vacancy.requirements} setValue={s => {setVacancy({...vacancy, requirements: s})}} label={"Требования"}/>
-                <TextInput value={vacancy.desirable} setValue={s => {setVacancy({...vacancy, desirable: s})}} label={"Будет плюсом"}/>
-                <TextInput value={vacancy.offer} setValue={s => {setVacancy({...vacancy, offer: s})}} label={"Мы предлагаем"}/>
+                             setValue={s => {
+                                 setVacancy({...vacancy, workExperience: s})
+                             }}/>
+                <TextInput value={vacancy.todos} setValue={s => {
+                    setVacancy({...vacancy, todos: s})
+                }} label={"Обязанности"}/>
+                <TextInput value={vacancy.requirements} setValue={s => {
+                    setVacancy({...vacancy, requirements: s})
+                }} label={"Требования"}/>
+                <TextInput value={vacancy.desirable} setValue={s => {
+                    setVacancy({...vacancy, desirable: s})
+                }} label={"Будет плюсом"}/>
+                <TextInput value={vacancy.offer} setValue={s => {
+                    setVacancy({...vacancy, offer: s})
+                }} label={"Мы предлагаем"}/>
                 <Container>
                     <Row>
                         <Col xs={4} sm={4}>
                             <h3>Ключевые навыки</h3>
                         </Col>
                         <Col xs={8} sm={8}>
-                            <TagsInput tags={vacancy.skills} setTags={s => setVacancy({...vacancy, skills: [...s]})} display={display} setDisplay={setDisplay} text={"Навыки"} value={tag} setValue={setTag}/>
+                            <TagsInput tags={vacancy.skills} setTags={s => setVacancy({...vacancy, skills: [...s]})}
+                                       display={display} setDisplay={setDisplay} text={"Навыки"} value={tag}
+                                       setValue={setTag}/>
                         </Col>
                     </Row>
                 </Container>
-
-                {/*остановился тут*/}
 
                 {questions.map((q, i) =>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "top", width: "100%"}}>
@@ -81,11 +95,21 @@ const VacancyForm = () => {
                                                        copy_questions[i].variants[j] = val
                                                        setQuestions(copy_questions)
                                                    }}/>
-                                                   <Btn text={"Del"} onClick={() => {
-                                                       let copy_questions = [...questions]
-                                                       copy_questions[i].variants = copy_questions[i].variants.filter((vr, k) => j != k)
-                                                       setQuestions(copy_questions)
-                                                   }}/>
+                                                   <Image className="delete-img" src={require("../images/delete.png")}
+                                                          onClick={() => {
+                                                              let copy_questions = [...questions]
+                                                              copy_questions[i].variants = copy_questions[i].variants.filter((vr, k) => j != k)
+                                                              setQuestions(copy_questions)
+                                                          }}
+                                                          onMouseOver={(e) => {
+                                                              //@ts-ignore
+                                                              e.target.src = require("../images/delete_red.png")
+                                                          }}
+                                                          onMouseOut={(e) => {
+                                                              //@ts-ignore
+                                                              e.target.src = require("../images/delete.png")
+                                                          }}
+                                                   />
                                                </div>
                                            )
                                        }
@@ -103,9 +127,19 @@ const VacancyForm = () => {
                             }/>
                         </div>
                         <div>
-                            <Btn text={"Del"} onClick={() => {
-                                setQuestions(questions.filter(quest => quest != q))
-                            }}/>
+                            <Image className="delete-img" src={require("../images/delete.png")}
+                                   onClick={() => {
+                                       setQuestions(questions.filter(quest => quest != q))
+                                   }}
+                                   onMouseOver={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete_red.png")
+                                   }}
+                                   onMouseOut={(e) => {
+                                       //@ts-ignore
+                                       e.target.src = require("../images/delete.png")
+                                   }}
+                            />
                         </div>
                     </div>
                 )}

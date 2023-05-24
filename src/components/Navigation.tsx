@@ -29,7 +29,6 @@ const Navigation = () => {
                         <Nav.Link active={active == 1} onClick={e => setActive(1)} as={Link} to="/search">Поиск</Nav.Link>
                         {isAuth && <Nav.Link active={active == 2} onClick={e => setActive(2)} as={Link} to="/profile">Профиль</Nav.Link>}
                         {isAuth && <Nav.Link active={active == 3} onClick={e => setActive(3)} as={Link} to="/matches">Мэтчи</Nav.Link>}
-                        <Nav.Link active={active == 4} onClick={e => setActive(4)} as={Link} to="/profile_hr">HR</Nav.Link>
                     </Nav>
                     <Nav>
                         {isAuth

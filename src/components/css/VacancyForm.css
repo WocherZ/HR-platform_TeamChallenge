@@ -20,5 +20,12 @@
 .vacancy-form .publish {
   margin-top: 100px;
 }
+.vacancy-form .delete-img {
+  width: 30px;
+  height: 30px;
+}
+.vacancy-form .delete-img:hover {
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=VacancyForm.css.map */

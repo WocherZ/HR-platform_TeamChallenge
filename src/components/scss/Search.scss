@@ -3,7 +3,7 @@
   position: relative;
   user-select: none;
   .filters {
-    background-color: mediumpurple;
+    background-color: #8860D0;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -43,7 +43,7 @@
   }
 
   .cards {
-    background-color: lightblue;
+    background-color: #C1C8E4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,15 +57,27 @@
       pointer-events: none;
       background-color: red;
       opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      color: #C1C8E4;
+      z-index: 50;
     }
 
     .like {
-      height: 100%;
+      height: 90vh;
       width: 100%;
       justify-self: start;
       pointer-events: none;
-      background-color: greenyellow;
+      background-color: green;
       opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      color: #C1C8E4;
+      z-index: 50;
     }
 
     .card-more-info {
@@ -88,6 +100,24 @@
       user-select: initial;
       max-height: 70px;
       z-index: 20;
+    }
+
+    .like-img {
+      height: 40px;
+      width: 40px;
+      &:hover {
+        color: green;
+        cursor: pointer;
+      }
+    }
+
+    .dislike-img {
+      height: 40px;
+      width: 40px;
+      &:hover {
+        color: red;
+        cursor: pointer;
+      }
     }
 
     @media screen {

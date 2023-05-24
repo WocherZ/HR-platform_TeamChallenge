@@ -2,13 +2,13 @@
   background-color: black;
 }
 .navbar .active {
-  color: lightblue !important;
+  color: #C1C8E4 !important;
 }
 .navbar a {
   color: mediumpurple;
 }
 .navbar a:hover, .navbar a:active, .navbar a:focus {
-  color: lightblue;
+  color: #C1C8E4;
 }
 .navbar .navbar-toggler {
   background-color: mediumpurple;

@@ -37,7 +37,7 @@ const Contact: FC<IContact> = ({id, click, contactId, lastMsg}) => {
             dispatch(setChatId(id))
         }}>
             <div className="photo">
-                <Image src={require("./images/ava.jpg")}/>
+                <Image src={require("../images/ava.jpg")}/>
             </div>
             <div className="content">
                 <div className="title"><p>{contact?.profession} - {contact?.post}</p></div>

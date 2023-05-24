@@ -23,9 +23,8 @@ const Matches = () => {
     useEffect(() => {
         getContacts(user?.id).then(vals => {
                 setContacts(vals)
-            }
-        )
-    })
+            })
+    }, [])
 
     return (
         <div className="matches">

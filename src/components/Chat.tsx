@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {store} from "../redux";
 import {setChatId} from "../redux/activeChatSlice";
 import Calendar from "./Calendar";
-import {getContact, getResume, getUserById, getVacancy} from "../api/Api";
+import {getContact, getResume, getUserById, getVacancy, sendMessage} from "../api/Api";
 import {IMessage, IResume, IUser, IVacancy} from "../types/types";
 
 interface IChat {
@@ -22,8 +22,6 @@ const Chat: FC<IChat> = ({onBack}) => {
     const [messages, setMessages] = useState<IMessage[]>()
     // @ts-ignore
     const user = useSelector(state => state.user)
-    const [vacancyOwner, setVacancyOwner] = useState<IUser>()
-    const [resumeOwner, setResumeOwner] = useState<IUser>()
 
     useEffect(() => {
         getContact(chatId).then(val => {
@@ -63,6 +61,7 @@ const Chat: FC<IChat> = ({onBack}) => {
                     <div className="input-field">
                         <Input text={"Сообщение"} value={msg} setValue={setMsg}/>
                         <Btn style={{marginBottom: "20px"}} text={"отправить"} onClick={() => {
+                            sendMessage(chatId, msg).then()
                         }}/>
                     </div>
 

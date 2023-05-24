@@ -12,12 +12,13 @@ interface ICard {
     setIsDown: (b: boolean) => void,
     setStartX: (n: number) => void,
     data: IResume | IVacancy,
+    ref?:  React.MutableRefObject<null>,
 }
 
 //Обработчики вне квадрата
-const Card: FC<ICard> = ({left, bottom, setBottom, rotation, setIsDown, setStartX, data}) => {
+const Card: FC<ICard> = ({ref, left, bottom, setBottom, rotation, setIsDown, setStartX, data}) => {
     return (
-        <div className="card" style={{rotate: rotation, left: `${left}px`}}
+        <div ref={ref} className="card" style={{rotate: rotation, left: `${left}px`}}
              onTouchStart={e => {
                  setStartX(e.touches[0].clientX)
              }}
